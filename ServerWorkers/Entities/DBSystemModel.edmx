@@ -1,0 +1,1634 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Btns">
+          <Key>
+            <PropertyRef Name="grupo" />
+          </Key>
+          <Property Name="grupo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="template_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bpath" Type="varchar" MaxLength="5" />
+          <Property Name="click_event" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="classe" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Campos">
+          <Key>
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="linha" Type="bit" Nullable="false" />
+          <Property Name="Tag" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Campos_DataMinMax">
+          <Key>
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Data_Minima" Type="datetime" />
+          <Property Name="Data_Maxima" Type="datetime" />
+          <Property Name="Definir_Minimo" Type="bit" Nullable="false" />
+          <Property Name="Definir_Maximo" Type="bit" Nullable="false" />
+          <Property Name="Minimo_Today" Type="bit" Nullable="false" />
+          <Property Name="Maximo_Today" Type="bit" Nullable="false" />
+          <Property Name="Edicao" Type="bit" Nullable="false" />
+          <Property Name="Formato" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="datetime" Nullable="false" />
+          <Property Name="Data_Alteracao" Type="datetime" Nullable="false" />
+          <Property Name="Local_Alteracao" Type="bigint" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="datetime" />
+          <Property Name="excluido" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Campos_Descricoes">
+          <Key>
+            <PropertyRef Name="Campo" />
+            <PropertyRef Name="Linguagem" />
+          </Key>
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Linguagem" Type="tinyint" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Placeholder" Type="varchar" MaxLength="100" />
+          <Property Name="Informacao" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Campos_ImagensUrl">
+          <Key>
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descricao_Default" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Descricao_Back" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Campos_Length_Limites">
+          <Key>
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Min_Length" Type="smallint" Nullable="false" />
+          <Property Name="Max_Length" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Campos_Methods">
+          <Key>
+            <PropertyRef Name="Modulo" />
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Modulo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Method" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Campos_MinMax">
+          <Key>
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tipo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Valor_Minimo" Type="decimal" Precision="25" Scale="5" Nullable="false" />
+          <Property Name="Valor_Maximo" Type="decimal" Precision="25" Scale="5" Nullable="false" />
+          <Property Name="Definir_Minimo" Type="bit" Nullable="false" />
+          <Property Name="Definir_Maximo" Type="bit" Nullable="false" />
+          <Property Name="Edicao" Type="bit" Nullable="false" />
+          <Property Name="Formato" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="datetime" Nullable="false" />
+          <Property Name="Data_Alteracao" Type="datetime" Nullable="false" />
+          <Property Name="Local_Alteracao" Type="bigint" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="datetime" />
+          <Property Name="excluido" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Campos_Modulos">
+          <Key>
+            <PropertyRef Name="Campo" />
+            <PropertyRef Name="Modulo" />
+          </Key>
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Modulo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Campos_Seq">
+          <Key>
+            <PropertyRef Name="Modulo" />
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Modulo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sequencia" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Campos_Seq_Panels">
+          <Key>
+            <PropertyRef Name="Modulo" />
+            <PropertyRef Name="Campo" />
+            <PropertyRef Name="Panel" />
+          </Key>
+          <Property Name="Modulo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Panel" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComboList">
+          <Key>
+            <PropertyRef Name="Linguagem" />
+            <PropertyRef Name="Tipo" />
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Linguagem" Type="tinyint" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Codigo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Ordem" Type="tinyint" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="qCadastros" Type="bit" Nullable="false" />
+          <Property Name="qProdutos" Type="bit" Nullable="false" />
+          <Property Name="qTributacoes" Type="bit" Nullable="false" />
+          <Property Name="qNFe" Type="bit" Nullable="false" />
+          <Property Name="qParametros" Type="bit" Nullable="false" />
+          <Property Name="qMovimentacoes" Type="bit" Nullable="false" />
+          <Property Name="qEstoque" Type="bit" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="datetime" Nullable="false" />
+          <Property Name="Data_Alteracao" Type="datetime" Nullable="false" />
+          <Property Name="Local_Alteracao" Type="bigint" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="datetime" />
+          <Property Name="excluido" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mensagens">
+          <Key>
+            <PropertyRef Name="Linguagem" />
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Funcao" />
+          </Key>
+          <Property Name="Linguagem" Type="tinyint" Nullable="false" />
+          <Property Name="Id" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Funcao" Type="bit" Nullable="false" />
+          <Property Name="Campo" Type="bit" Nullable="false" />
+          <Property Name="Comum" Type="bit" Nullable="false" />
+          <Property Name="Grupo" Type="varchar" MaxLength="30" />
+          <Property Name="Mensagem" Type="varchar" MaxLength="2000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Methods_Check">
+          <Key>
+            <PropertyRef Name="Modulo" />
+            <PropertyRef Name="Method" />
+          </Key>
+          <Property Name="Modulo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Method" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbls">
+          <Key>
+            <PropertyRef Name="tbl" />
+          </Key>
+          <Property Name="tbl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tbl_referencia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="start_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="table_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="show_header" Type="bit" Nullable="false" />
+          <Property Name="pauta_index" Type="tinyint" Nullable="false" />
+          <Property Name="fitcontent" Type="bit" Nullable="false" />
+          <Property Name="resize" Type="bit" Nullable="false" />
+          <Property Name="drilldown" Type="bit" Nullable="false" />
+          <Property Name="image" Type="bit" Nullable="false" />
+          <Property Name="preview" Type="bit" Nullable="false" />
+          <Property Name="red_button" Type="bit" Nullable="false" />
+          <Property Name="table_width" Type="varchar" MaxLength="10" />
+          <Property Name="bpath" Type="varchar" MaxLength="5" />
+          <Property Name="rowspan" Type="tinyint" Nullable="false" />
+          <Property Name="template_header" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="template_itens" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="template_options" Type="varchar" MaxLength="8000" />
+        </EntityType>
+        <EntityType Name="Tbls_ClickEvents">
+          <Key>
+            <PropertyRef Name="tbl" />
+            <PropertyRef Name="tipo" />
+          </Key>
+          <Property Name="tbl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tipo" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="click_event" Type="varchar" MaxLength="2000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbls_Modulos">
+          <Key>
+            <PropertyRef Name="tbl" />
+            <PropertyRef Name="Modulo" />
+          </Key>
+          <Property Name="tbl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Modulo" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbls_PageInfos">
+          <Key>
+            <PropertyRef Name="tbl" />
+          </Key>
+          <Property Name="tbl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quantidade_Linhas_Pagina" Type="smallint" Nullable="false" />
+          <Property Name="Campo_Default" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Label_Id_NotFound" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbls_Querys">
+          <Key>
+            <PropertyRef Name="tbl" />
+          </Key>
+          <Property Name="tbl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="From_" Type="varchar" MaxLength="3000" Nullable="false" />
+          <Property Name="Select_" Type="varchar" MaxLength="5000" Nullable="false" />
+          <Property Name="Where_" Type="varchar" MaxLength="2000" />
+          <Property Name="GroupBy_" Type="varchar" MaxLength="2000" />
+          <Property Name="Count_Total" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Tbls_Sorts">
+          <Key>
+            <PropertyRef Name="tbl" />
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="tbl" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Campo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Campo_BD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Order_From_Select" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="optional_order" Type="varchar" MaxLength="1000" />
+          <Property Name="compactar_descricao" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Temas">
+          <Key>
+            <PropertyRef Name="Codigo_Tema" />
+          </Key>
+          <Property Name="Codigo_Tema" Type="int" Nullable="false" />
+          <Property Name="roundbutton" Type="bit" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="datetime" Nullable="false" />
+          <Property Name="Data_Alteracao" Type="datetime" Nullable="false" />
+          <Property Name="Local_Alteracao" Type="bigint" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="datetime" />
+          <Property Name="excluido" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Temas_Colors">
+          <Key>
+            <PropertyRef Name="Codigo_Tema" />
+            <PropertyRef Name="Descricao" />
+          </Key>
+          <Property Name="Codigo_Tema" Type="int" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="backcolor" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="datetime" Nullable="false" />
+          <Property Name="Data_Alteracao" Type="datetime" Nullable="false" />
+          <Property Name="Local_Alteracao" Type="bigint" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="datetime" />
+          <Property Name="excluido" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Temas_Css">
+          <Key>
+            <PropertyRef Name="Codigo_Tema" />
+            <PropertyRef Name="Sequencia" />
+          </Key>
+          <Property Name="Codigo_Tema" Type="int" Nullable="false" />
+          <Property Name="Sequencia" Type="int" Nullable="false" />
+          <Property Name="selector" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="prop" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="value" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="datetime" Nullable="false" />
+          <Property Name="Data_Alteracao" Type="datetime" Nullable="false" />
+          <Property Name="Local_Alteracao" Type="bigint" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="datetime" />
+          <Property Name="excluido" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Templates">
+          <Key>
+            <PropertyRef Name="template_id" />
+          </Key>
+          <Property Name="template_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="template" Type="varchar" MaxLength="8000" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Btns_Templates">
+          <End Role="Templates" Type="Self.Templates" Multiplicity="1" />
+          <End Role="Btns" Type="Self.Btns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Templates">
+              <PropertyRef Name="template_id" />
+            </Principal>
+            <Dependent Role="Btns">
+              <PropertyRef Name="template_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Descricoes_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Campos_Descricoes" Type="Self.Campos_Descricoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Descricoes">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_ImagensUrl_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Campos_ImagensUrl" Type="Self.Campos_ImagensUrl" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_ImagensUrl">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Length_Limites_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Campos_Length_Limites" Type="Self.Campos_Length_Limites" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Length_Limites">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Methods_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Campos_Methods" Type="Self.Campos_Methods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Methods">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Modulos_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Campos_Modulos" Type="Self.Campos_Modulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Modulos">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Seq_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Campos_Seq" Type="Self.Campos_Seq" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Seq">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Seq_Panels_Campos_Seq">
+          <End Role="Campos_Seq" Type="Self.Campos_Seq" Multiplicity="1" />
+          <End Role="Campos_Seq_Panels" Type="Self.Campos_Seq_Panels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos_Seq">
+              <PropertyRef Name="Modulo" />
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Seq_Panels">
+              <PropertyRef Name="Modulo" />
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parametros_DataMinMax_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Campos_DataMinMax" Type="Self.Campos_DataMinMax" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_DataMinMax">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parametros_MinMax_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Campos_MinMax" Type="Self.Campos_MinMax" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_MinMax">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Sort_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbls_Sorts" Type="Self.Tbls_Sorts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Tbls_Sorts">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_ClickEvents_Tbls">
+          <End Role="Tbls" Type="Self.Tbls" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbls_ClickEvents" Type="Self.Tbls_ClickEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbls">
+              <PropertyRef Name="tbl" />
+            </Principal>
+            <Dependent Role="Tbls_ClickEvents">
+              <PropertyRef Name="tbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_Modulos_Tbls">
+          <End Role="Tbls" Type="Self.Tbls" Multiplicity="1" />
+          <End Role="Tbls_Modulos" Type="Self.Tbls_Modulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbls">
+              <PropertyRef Name="tbl" />
+            </Principal>
+            <Dependent Role="Tbls_Modulos">
+              <PropertyRef Name="tbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_PageInfos_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Tbls_PageInfos" Type="Self.Tbls_PageInfos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Tbls_PageInfos">
+              <PropertyRef Name="Campo_Default" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_PageInfos_Tbls">
+          <End Role="Tbls" Type="Self.Tbls" Multiplicity="1" />
+          <End Role="Tbls_PageInfos" Type="Self.Tbls_PageInfos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tbls">
+              <PropertyRef Name="tbl" />
+            </Principal>
+            <Dependent Role="Tbls_PageInfos">
+              <PropertyRef Name="tbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_Querys_Tbls">
+          <End Role="Tbls" Type="Self.Tbls" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbls_Querys" Type="Self.Tbls_Querys" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tbls">
+              <PropertyRef Name="tbl" />
+            </Principal>
+            <Dependent Role="Tbls_Querys">
+              <PropertyRef Name="tbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_Sorts_Tbls">
+          <End Role="Tbls" Type="Self.Tbls" Multiplicity="1" />
+          <End Role="Tbls_Sorts" Type="Self.Tbls_Sorts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbls">
+              <PropertyRef Name="tbl" />
+            </Principal>
+            <Dependent Role="Tbls_Sorts">
+              <PropertyRef Name="tbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temas_Colors_Temas">
+          <End Role="Temas" Type="Self.Temas" Multiplicity="1" />
+          <End Role="Temas_Colors" Type="Self.Temas_Colors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Temas">
+              <PropertyRef Name="Codigo_Tema" />
+            </Principal>
+            <Dependent Role="Temas_Colors">
+              <PropertyRef Name="Codigo_Tema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temas_Css_Temas">
+          <End Role="Temas" Type="Self.Temas" Multiplicity="1" />
+          <End Role="Temas_Css" Type="Self.Temas_Css" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Temas">
+              <PropertyRef Name="Codigo_Tema" />
+            </Principal>
+            <Dependent Role="Temas_Css">
+              <PropertyRef Name="Codigo_Tema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBSystemModelStoreContainer">
+          <EntitySet Name="Btns" EntityType="Self.Btns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campos" EntityType="Self.Campos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campos_DataMinMax" EntityType="Self.Campos_DataMinMax" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campos_Descricoes" EntityType="Self.Campos_Descricoes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campos_ImagensUrl" EntityType="Self.Campos_ImagensUrl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campos_Length_Limites" EntityType="Self.Campos_Length_Limites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campos_Methods" EntityType="Self.Campos_Methods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campos_MinMax" EntityType="Self.Campos_MinMax" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campos_Modulos" EntityType="Self.Campos_Modulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campos_Seq" EntityType="Self.Campos_Seq" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campos_Seq_Panels" EntityType="Self.Campos_Seq_Panels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComboList" EntityType="Self.ComboList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mensagens" EntityType="Self.Mensagens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Methods_Check" EntityType="Self.Methods_Check" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbls" EntityType="Self.Tbls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbls_ClickEvents" EntityType="Self.Tbls_ClickEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbls_Modulos" EntityType="Self.Tbls_Modulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbls_PageInfos" EntityType="Self.Tbls_PageInfos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbls_Querys" EntityType="Self.Tbls_Querys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbls_Sorts" EntityType="Self.Tbls_Sorts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Temas" EntityType="Self.Temas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Temas_Colors" EntityType="Self.Temas_Colors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Temas_Css" EntityType="Self.Temas_Css" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Templates" EntityType="Self.Templates" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Btns_Templates" Association="Self.FK_Btns_Templates">
+            <End Role="Templates" EntitySet="Templates" />
+            <End Role="Btns" EntitySet="Btns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Descricoes_Campos" Association="Self.FK_Campos_Descricoes_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_Descricoes" EntitySet="Campos_Descricoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_ImagensUrl_Campos" Association="Self.FK_Campos_ImagensUrl_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_ImagensUrl" EntitySet="Campos_ImagensUrl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Length_Limites_Campos" Association="Self.FK_Campos_Length_Limites_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_Length_Limites" EntitySet="Campos_Length_Limites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Methods_Campos" Association="Self.FK_Campos_Methods_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_Methods" EntitySet="Campos_Methods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Modulos_Campos" Association="Self.FK_Campos_Modulos_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_Modulos" EntitySet="Campos_Modulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Seq_Campos" Association="Self.FK_Campos_Seq_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_Seq" EntitySet="Campos_Seq" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Seq_Panels_Campos_Seq" Association="Self.FK_Campos_Seq_Panels_Campos_Seq">
+            <End Role="Campos_Seq" EntitySet="Campos_Seq" />
+            <End Role="Campos_Seq_Panels" EntitySet="Campos_Seq_Panels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parametros_DataMinMax_Campos" Association="Self.FK_Parametros_DataMinMax_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_DataMinMax" EntitySet="Campos_DataMinMax" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parametros_MinMax_Campos" Association="Self.FK_Parametros_MinMax_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_MinMax" EntitySet="Campos_MinMax" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Sort_Campos" Association="Self.FK_Tbl_Sort_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Tbls_Sorts" EntitySet="Tbls_Sorts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_ClickEvents_Tbls" Association="Self.FK_Tbls_ClickEvents_Tbls">
+            <End Role="Tbls" EntitySet="Tbls" />
+            <End Role="Tbls_ClickEvents" EntitySet="Tbls_ClickEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_Modulos_Tbls" Association="Self.FK_Tbls_Modulos_Tbls">
+            <End Role="Tbls" EntitySet="Tbls" />
+            <End Role="Tbls_Modulos" EntitySet="Tbls_Modulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_PageInfos_Campos" Association="Self.FK_Tbls_PageInfos_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Tbls_PageInfos" EntitySet="Tbls_PageInfos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_PageInfos_Tbls" Association="Self.FK_Tbls_PageInfos_Tbls">
+            <End Role="Tbls" EntitySet="Tbls" />
+            <End Role="Tbls_PageInfos" EntitySet="Tbls_PageInfos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_Querys_Tbls" Association="Self.FK_Tbls_Querys_Tbls">
+            <End Role="Tbls" EntitySet="Tbls" />
+            <End Role="Tbls_Querys" EntitySet="Tbls_Querys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_Sorts_Tbls" Association="Self.FK_Tbls_Sorts_Tbls">
+            <End Role="Tbls" EntitySet="Tbls" />
+            <End Role="Tbls_Sorts" EntitySet="Tbls_Sorts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temas_Colors_Temas" Association="Self.FK_Temas_Colors_Temas">
+            <End Role="Temas" EntitySet="Temas" />
+            <End Role="Temas_Colors" EntitySet="Temas_Colors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temas_Css_Temas" Association="Self.FK_Temas_Css_Temas">
+            <End Role="Temas" EntitySet="Temas" />
+            <End Role="Temas_Css" EntitySet="Temas_Css" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Btns">
+          <Key>
+            <PropertyRef Name="grupo" />
+          </Key>
+          <Property Name="grupo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="template_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bpath" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="click_event" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="classe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Templates" Relationship="Self.FK_Btns_Templates" FromRole="Btns" ToRole="Templates" />
+        </EntityType>
+        <EntityType Name="Campos">
+          <Key>
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="linha" Type="Boolean" Nullable="false" />
+          <Property Name="Tag" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Campos_Descricoes" Relationship="Self.FK_Campos_Descricoes_Campos" FromRole="Campos" ToRole="Campos_Descricoes" />
+          <NavigationProperty Name="Campos_ImagensUrl" Relationship="Self.FK_Campos_ImagensUrl_Campos" FromRole="Campos" ToRole="Campos_ImagensUrl" />
+          <NavigationProperty Name="Campos_Length_Limites" Relationship="Self.FK_Campos_Length_Limites_Campos" FromRole="Campos" ToRole="Campos_Length_Limites" />
+          <NavigationProperty Name="Campos_Methods" Relationship="Self.FK_Campos_Methods_Campos" FromRole="Campos" ToRole="Campos_Methods" />
+          <NavigationProperty Name="Campos_Modulos" Relationship="Self.FK_Campos_Modulos_Campos" FromRole="Campos" ToRole="Campos_Modulos" />
+          <NavigationProperty Name="Campos_Seq" Relationship="Self.FK_Campos_Seq_Campos" FromRole="Campos" ToRole="Campos_Seq" />
+          <NavigationProperty Name="Campos_DataMinMax" Relationship="Self.FK_Parametros_DataMinMax_Campos" FromRole="Campos" ToRole="Campos_DataMinMax" />
+          <NavigationProperty Name="Campos_MinMax" Relationship="Self.FK_Parametros_MinMax_Campos" FromRole="Campos" ToRole="Campos_MinMax" />
+          <NavigationProperty Name="Tbls_Sorts" Relationship="Self.FK_Tbl_Sort_Campos" FromRole="Campos" ToRole="Tbls_Sorts" />
+          <NavigationProperty Name="Tbls_PageInfos" Relationship="Self.FK_Tbls_PageInfos_Campos" FromRole="Campos" ToRole="Tbls_PageInfos" />
+        </EntityType>
+        <EntityType Name="Campos_DataMinMax">
+          <Key>
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data_Minima" Type="DateTime" Precision="3" />
+          <Property Name="Data_Maxima" Type="DateTime" Precision="3" />
+          <Property Name="Definir_Minimo" Type="Boolean" Nullable="false" />
+          <Property Name="Definir_Maximo" Type="Boolean" Nullable="false" />
+          <Property Name="Minimo_Today" Type="Boolean" Nullable="false" />
+          <Property Name="Maximo_Today" Type="Boolean" Nullable="false" />
+          <Property Name="Edicao" Type="Boolean" Nullable="false" />
+          <Property Name="Formato" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Data_Alteracao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Local_Alteracao" Type="Int64" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="DateTime" Precision="3" />
+          <Property Name="excluido" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Parametros_DataMinMax_Campos" FromRole="Campos_DataMinMax" ToRole="Campos" />
+        </EntityType>
+        <EntityType Name="Campos_Descricoes">
+          <Key>
+            <PropertyRef Name="Campo" />
+            <PropertyRef Name="Linguagem" />
+          </Key>
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Linguagem" Type="Byte" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Placeholder" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Informacao" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Campos_Descricoes_Campos" FromRole="Campos_Descricoes" ToRole="Campos" />
+        </EntityType>
+        <EntityType Name="Campos_ImagensUrl">
+          <Key>
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao_Default" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao_Back" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Campos_ImagensUrl_Campos" FromRole="Campos_ImagensUrl" ToRole="Campos" />
+        </EntityType>
+        <EntityType Name="Campos_Length_Limites">
+          <Key>
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Min_Length" Type="Int16" Nullable="false" />
+          <Property Name="Max_Length" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Campos_Length_Limites_Campos" FromRole="Campos_Length_Limites" ToRole="Campos" />
+        </EntityType>
+        <EntityType Name="Campos_Methods">
+          <Key>
+            <PropertyRef Name="Modulo" />
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Modulo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Method" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Campos_Methods_Campos" FromRole="Campos_Methods" ToRole="Campos" />
+        </EntityType>
+        <EntityType Name="Campos_MinMax">
+          <Key>
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Valor_Minimo" Type="Decimal" Precision="25" Scale="5" Nullable="false" />
+          <Property Name="Valor_Maximo" Type="Decimal" Precision="25" Scale="5" Nullable="false" />
+          <Property Name="Definir_Minimo" Type="Boolean" Nullable="false" />
+          <Property Name="Definir_Maximo" Type="Boolean" Nullable="false" />
+          <Property Name="Edicao" Type="Boolean" Nullable="false" />
+          <Property Name="Formato" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Data_Alteracao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Local_Alteracao" Type="Int64" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="DateTime" Precision="3" />
+          <Property Name="excluido" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Parametros_MinMax_Campos" FromRole="Campos_MinMax" ToRole="Campos" />
+        </EntityType>
+        <EntityType Name="Campos_Modulos">
+          <Key>
+            <PropertyRef Name="Campo" />
+            <PropertyRef Name="Modulo" />
+          </Key>
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Modulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Campos_Modulos_Campos" FromRole="Campos_Modulos" ToRole="Campos" />
+        </EntityType>
+        <EntityType Name="Campos_Seq">
+          <Key>
+            <PropertyRef Name="Modulo" />
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="Modulo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sequencia" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Campos_Seq_Campos" FromRole="Campos_Seq" ToRole="Campos" />
+          <NavigationProperty Name="Campos_Seq_Panels" Relationship="Self.FK_Campos_Seq_Panels_Campos_Seq" FromRole="Campos_Seq" ToRole="Campos_Seq_Panels" />
+        </EntityType>
+        <EntityType Name="Campos_Seq_Panels">
+          <Key>
+            <PropertyRef Name="Modulo" />
+            <PropertyRef Name="Campo" />
+            <PropertyRef Name="Panel" />
+          </Key>
+          <Property Name="Modulo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Panel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Campos_Seq" Relationship="Self.FK_Campos_Seq_Panels_Campos_Seq" FromRole="Campos_Seq_Panels" ToRole="Campos_Seq" />
+        </EntityType>
+        <EntityType Name="ComboList">
+          <Key>
+            <PropertyRef Name="Linguagem" />
+            <PropertyRef Name="Tipo" />
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Linguagem" Type="Byte" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Codigo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Ordem" Type="Byte" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="qCadastros" Type="Boolean" Nullable="false" />
+          <Property Name="qProdutos" Type="Boolean" Nullable="false" />
+          <Property Name="qTributacoes" Type="Boolean" Nullable="false" />
+          <Property Name="qNFe" Type="Boolean" Nullable="false" />
+          <Property Name="qParametros" Type="Boolean" Nullable="false" />
+          <Property Name="qMovimentacoes" Type="Boolean" Nullable="false" />
+          <Property Name="qEstoque" Type="Boolean" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Data_Alteracao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Local_Alteracao" Type="Int64" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="DateTime" Precision="3" />
+          <Property Name="excluido" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mensagens">
+          <Key>
+            <PropertyRef Name="Linguagem" />
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Funcao" />
+          </Key>
+          <Property Name="Linguagem" Type="Byte" Nullable="false" />
+          <Property Name="Id" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Funcao" Type="Boolean" Nullable="false" />
+          <Property Name="Campo" Type="Boolean" Nullable="false" />
+          <Property Name="Comum" Type="Boolean" Nullable="false" />
+          <Property Name="Grupo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Mensagem" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Methods_Check">
+          <Key>
+            <PropertyRef Name="Modulo" />
+            <PropertyRef Name="Method" />
+          </Key>
+          <Property Name="Modulo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Method" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbls">
+          <Key>
+            <PropertyRef Name="tbl" />
+          </Key>
+          <Property Name="tbl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tbl_referencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="start_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="table_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="show_header" Type="Boolean" Nullable="false" />
+          <Property Name="pauta_index" Type="Byte" Nullable="false" />
+          <Property Name="fitcontent" Type="Boolean" Nullable="false" />
+          <Property Name="resize" Type="Boolean" Nullable="false" />
+          <Property Name="drilldown" Type="Boolean" Nullable="false" />
+          <Property Name="image" Type="Boolean" Nullable="false" />
+          <Property Name="preview" Type="Boolean" Nullable="false" />
+          <Property Name="red_button" Type="Boolean" Nullable="false" />
+          <Property Name="table_width" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="bpath" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="rowspan" Type="Byte" Nullable="false" />
+          <Property Name="template_header" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="template_itens" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="template_options" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbls_ClickEvents" Relationship="Self.FK_Tbls_ClickEvents_Tbls" FromRole="Tbls" ToRole="Tbls_ClickEvents" />
+          <NavigationProperty Name="Tbls_Modulos" Relationship="Self.FK_Tbls_Modulos_Tbls" FromRole="Tbls" ToRole="Tbls_Modulos" />
+          <NavigationProperty Name="Tbls_PageInfos" Relationship="Self.FK_Tbls_PageInfos_Tbls" FromRole="Tbls" ToRole="Tbls_PageInfos" />
+          <NavigationProperty Name="Tbls_Querys" Relationship="Self.FK_Tbls_Querys_Tbls" FromRole="Tbls" ToRole="Tbls_Querys" />
+          <NavigationProperty Name="Tbls_Sorts" Relationship="Self.FK_Tbls_Sorts_Tbls" FromRole="Tbls" ToRole="Tbls_Sorts" />
+        </EntityType>
+        <EntityType Name="Tbls_ClickEvents">
+          <Key>
+            <PropertyRef Name="tbl" />
+            <PropertyRef Name="tipo" />
+          </Key>
+          <Property Name="tbl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="click_event" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tbls" Relationship="Self.FK_Tbls_ClickEvents_Tbls" FromRole="Tbls_ClickEvents" ToRole="Tbls" />
+        </EntityType>
+        <EntityType Name="Tbls_Modulos">
+          <Key>
+            <PropertyRef Name="tbl" />
+            <PropertyRef Name="Modulo" />
+          </Key>
+          <Property Name="tbl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Modulo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tbls" Relationship="Self.FK_Tbls_Modulos_Tbls" FromRole="Tbls_Modulos" ToRole="Tbls" />
+        </EntityType>
+        <EntityType Name="Tbls_PageInfos">
+          <Key>
+            <PropertyRef Name="tbl" />
+          </Key>
+          <Property Name="tbl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Quantidade_Linhas_Pagina" Type="Int16" Nullable="false" />
+          <Property Name="Campo_Default" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Label_Id_NotFound" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Tbls_PageInfos_Campos" FromRole="Tbls_PageInfos" ToRole="Campos" />
+          <NavigationProperty Name="Tbls" Relationship="Self.FK_Tbls_PageInfos_Tbls" FromRole="Tbls_PageInfos" ToRole="Tbls" />
+        </EntityType>
+        <EntityType Name="Tbls_Querys">
+          <Key>
+            <PropertyRef Name="tbl" />
+          </Key>
+          <Property Name="tbl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="From_" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Select_" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Where_" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="GroupBy_" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Count_Total" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbls" Relationship="Self.FK_Tbls_Querys_Tbls" FromRole="Tbls_Querys" ToRole="Tbls" />
+        </EntityType>
+        <EntityType Name="Tbls_Sorts">
+          <Key>
+            <PropertyRef Name="tbl" />
+            <PropertyRef Name="Campo" />
+          </Key>
+          <Property Name="tbl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Campo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Campo_BD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Order_From_Select" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="optional_order" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="compactar_descricao" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Campos" Relationship="Self.FK_Tbl_Sort_Campos" FromRole="Tbls_Sorts" ToRole="Campos" />
+          <NavigationProperty Name="Tbls" Relationship="Self.FK_Tbls_Sorts_Tbls" FromRole="Tbls_Sorts" ToRole="Tbls" />
+        </EntityType>
+        <EntityType Name="Temas">
+          <Key>
+            <PropertyRef Name="Codigo_Tema" />
+          </Key>
+          <Property Name="Codigo_Tema" Type="Int32" Nullable="false" />
+          <Property Name="roundbutton" Type="Boolean" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Data_Alteracao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Local_Alteracao" Type="Int64" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="DateTime" Precision="3" />
+          <Property Name="excluido" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Temas_Colors" Relationship="Self.FK_Temas_Colors_Temas" FromRole="Temas" ToRole="Temas_Colors" />
+          <NavigationProperty Name="Temas_Css" Relationship="Self.FK_Temas_Css_Temas" FromRole="Temas" ToRole="Temas_Css" />
+        </EntityType>
+        <EntityType Name="Temas_Colors">
+          <Key>
+            <PropertyRef Name="Codigo_Tema" />
+            <PropertyRef Name="Descricao" />
+          </Key>
+          <Property Name="Codigo_Tema" Type="Int32" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="color" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="backcolor" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Data_Alteracao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Local_Alteracao" Type="Int64" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="DateTime" Precision="3" />
+          <Property Name="excluido" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Temas" Relationship="Self.FK_Temas_Colors_Temas" FromRole="Temas_Colors" ToRole="Temas" />
+        </EntityType>
+        <EntityType Name="Temas_Css">
+          <Key>
+            <PropertyRef Name="Codigo_Tema" />
+            <PropertyRef Name="Sequencia" />
+          </Key>
+          <Property Name="Codigo_Tema" Type="Int32" Nullable="false" />
+          <Property Name="Sequencia" Type="Int32" Nullable="false" />
+          <Property Name="selector" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prop" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="value" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data_Inclusao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Data_Alteracao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Local_Alteracao" Type="Int64" Nullable="false" />
+          <Property Name="Data_Exclusao" Type="DateTime" Precision="3" />
+          <Property Name="excluido" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Temas" Relationship="Self.FK_Temas_Css_Temas" FromRole="Temas_Css" ToRole="Temas" />
+        </EntityType>
+        <EntityType Name="Templates">
+          <Key>
+            <PropertyRef Name="template_id" />
+          </Key>
+          <Property Name="template_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="template" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Btns" Relationship="Self.FK_Btns_Templates" FromRole="Templates" ToRole="Btns" />
+        </EntityType>
+        <Association Name="FK_Btns_Templates">
+          <End Role="Templates" Type="Self.Templates" Multiplicity="1" />
+          <End Role="Btns" Type="Self.Btns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Templates">
+              <PropertyRef Name="template_id" />
+            </Principal>
+            <Dependent Role="Btns">
+              <PropertyRef Name="template_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Descricoes_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Campos_Descricoes" Type="Self.Campos_Descricoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Descricoes">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_ImagensUrl_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Campos_ImagensUrl" Type="Self.Campos_ImagensUrl" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_ImagensUrl">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Length_Limites_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Campos_Length_Limites" Type="Self.Campos_Length_Limites" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Length_Limites">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Methods_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Campos_Methods" Type="Self.Campos_Methods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Methods">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Modulos_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Campos_Modulos" Type="Self.Campos_Modulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Modulos">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Seq_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Campos_Seq" Type="Self.Campos_Seq" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Seq">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parametros_DataMinMax_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Campos_DataMinMax" Type="Self.Campos_DataMinMax" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_DataMinMax">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parametros_MinMax_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Campos_MinMax" Type="Self.Campos_MinMax" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_MinMax">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Sort_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbls_Sorts" Type="Self.Tbls_Sorts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Tbls_Sorts">
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_PageInfos_Campos">
+          <End Role="Campos" Type="Self.Campos" Multiplicity="1" />
+          <End Role="Tbls_PageInfos" Type="Self.Tbls_PageInfos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos">
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Tbls_PageInfos">
+              <PropertyRef Name="Campo_Default" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campos_Seq_Panels_Campos_Seq">
+          <End Role="Campos_Seq" Type="Self.Campos_Seq" Multiplicity="1" />
+          <End Role="Campos_Seq_Panels" Type="Self.Campos_Seq_Panels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campos_Seq">
+              <PropertyRef Name="Modulo" />
+              <PropertyRef Name="Campo" />
+            </Principal>
+            <Dependent Role="Campos_Seq_Panels">
+              <PropertyRef Name="Modulo" />
+              <PropertyRef Name="Campo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_ClickEvents_Tbls">
+          <End Role="Tbls" Type="Self.Tbls" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbls_ClickEvents" Type="Self.Tbls_ClickEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbls">
+              <PropertyRef Name="tbl" />
+            </Principal>
+            <Dependent Role="Tbls_ClickEvents">
+              <PropertyRef Name="tbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_Modulos_Tbls">
+          <End Role="Tbls" Type="Self.Tbls" Multiplicity="1" />
+          <End Role="Tbls_Modulos" Type="Self.Tbls_Modulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbls">
+              <PropertyRef Name="tbl" />
+            </Principal>
+            <Dependent Role="Tbls_Modulos">
+              <PropertyRef Name="tbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_PageInfos_Tbls">
+          <End Role="Tbls" Type="Self.Tbls" Multiplicity="1" />
+          <End Role="Tbls_PageInfos" Type="Self.Tbls_PageInfos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tbls">
+              <PropertyRef Name="tbl" />
+            </Principal>
+            <Dependent Role="Tbls_PageInfos">
+              <PropertyRef Name="tbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_Querys_Tbls">
+          <End Role="Tbls" Type="Self.Tbls" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbls_Querys" Type="Self.Tbls_Querys" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Tbls">
+              <PropertyRef Name="tbl" />
+            </Principal>
+            <Dependent Role="Tbls_Querys">
+              <PropertyRef Name="tbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbls_Sorts_Tbls">
+          <End Role="Tbls" Type="Self.Tbls" Multiplicity="1" />
+          <End Role="Tbls_Sorts" Type="Self.Tbls_Sorts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbls">
+              <PropertyRef Name="tbl" />
+            </Principal>
+            <Dependent Role="Tbls_Sorts">
+              <PropertyRef Name="tbl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temas_Colors_Temas">
+          <End Role="Temas" Type="Self.Temas" Multiplicity="1" />
+          <End Role="Temas_Colors" Type="Self.Temas_Colors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Temas">
+              <PropertyRef Name="Codigo_Tema" />
+            </Principal>
+            <Dependent Role="Temas_Colors">
+              <PropertyRef Name="Codigo_Tema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Temas_Css_Temas">
+          <End Role="Temas" Type="Self.Temas" Multiplicity="1" />
+          <End Role="Temas_Css" Type="Self.Temas_Css" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Temas">
+              <PropertyRef Name="Codigo_Tema" />
+            </Principal>
+            <Dependent Role="Temas_Css">
+              <PropertyRef Name="Codigo_Tema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Btns" EntityType="Self.Btns" />
+          <EntitySet Name="Campos" EntityType="Self.Campos" />
+          <EntitySet Name="Campos_DataMinMax" EntityType="Self.Campos_DataMinMax" />
+          <EntitySet Name="Campos_Descricoes" EntityType="Self.Campos_Descricoes" />
+          <EntitySet Name="Campos_ImagensUrl" EntityType="Self.Campos_ImagensUrl" />
+          <EntitySet Name="Campos_Length_Limites" EntityType="Self.Campos_Length_Limites" />
+          <EntitySet Name="Campos_Methods" EntityType="Self.Campos_Methods" />
+          <EntitySet Name="Campos_MinMax" EntityType="Self.Campos_MinMax" />
+          <EntitySet Name="Campos_Modulos" EntityType="Self.Campos_Modulos" />
+          <EntitySet Name="Campos_Seq" EntityType="Self.Campos_Seq" />
+          <EntitySet Name="Campos_Seq_Panels" EntityType="Self.Campos_Seq_Panels" />
+          <EntitySet Name="ComboList" EntityType="Self.ComboList" />
+          <EntitySet Name="Mensagens" EntityType="Self.Mensagens" />
+          <EntitySet Name="Methods_Check" EntityType="Self.Methods_Check" />
+          <EntitySet Name="Tbls" EntityType="Self.Tbls" />
+          <EntitySet Name="Tbls_ClickEvents" EntityType="Self.Tbls_ClickEvents" />
+          <EntitySet Name="Tbls_Modulos" EntityType="Self.Tbls_Modulos" />
+          <EntitySet Name="Tbls_PageInfos" EntityType="Self.Tbls_PageInfos" />
+          <EntitySet Name="Tbls_Querys" EntityType="Self.Tbls_Querys" />
+          <EntitySet Name="Tbls_Sorts" EntityType="Self.Tbls_Sorts" />
+          <EntitySet Name="Temas" EntityType="Self.Temas" />
+          <EntitySet Name="Temas_Colors" EntityType="Self.Temas_Colors" />
+          <EntitySet Name="Temas_Css" EntityType="Self.Temas_Css" />
+          <EntitySet Name="Templates" EntityType="Self.Templates" />
+          <AssociationSet Name="FK_Btns_Templates" Association="Self.FK_Btns_Templates">
+            <End Role="Templates" EntitySet="Templates" />
+            <End Role="Btns" EntitySet="Btns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Descricoes_Campos" Association="Self.FK_Campos_Descricoes_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_Descricoes" EntitySet="Campos_Descricoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_ImagensUrl_Campos" Association="Self.FK_Campos_ImagensUrl_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_ImagensUrl" EntitySet="Campos_ImagensUrl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Length_Limites_Campos" Association="Self.FK_Campos_Length_Limites_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_Length_Limites" EntitySet="Campos_Length_Limites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Methods_Campos" Association="Self.FK_Campos_Methods_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_Methods" EntitySet="Campos_Methods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Modulos_Campos" Association="Self.FK_Campos_Modulos_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_Modulos" EntitySet="Campos_Modulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Seq_Campos" Association="Self.FK_Campos_Seq_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_Seq" EntitySet="Campos_Seq" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parametros_DataMinMax_Campos" Association="Self.FK_Parametros_DataMinMax_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_DataMinMax" EntitySet="Campos_DataMinMax" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parametros_MinMax_Campos" Association="Self.FK_Parametros_MinMax_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Campos_MinMax" EntitySet="Campos_MinMax" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Sort_Campos" Association="Self.FK_Tbl_Sort_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Tbls_Sorts" EntitySet="Tbls_Sorts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_PageInfos_Campos" Association="Self.FK_Tbls_PageInfos_Campos">
+            <End Role="Campos" EntitySet="Campos" />
+            <End Role="Tbls_PageInfos" EntitySet="Tbls_PageInfos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campos_Seq_Panels_Campos_Seq" Association="Self.FK_Campos_Seq_Panels_Campos_Seq">
+            <End Role="Campos_Seq" EntitySet="Campos_Seq" />
+            <End Role="Campos_Seq_Panels" EntitySet="Campos_Seq_Panels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_ClickEvents_Tbls" Association="Self.FK_Tbls_ClickEvents_Tbls">
+            <End Role="Tbls" EntitySet="Tbls" />
+            <End Role="Tbls_ClickEvents" EntitySet="Tbls_ClickEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_Modulos_Tbls" Association="Self.FK_Tbls_Modulos_Tbls">
+            <End Role="Tbls" EntitySet="Tbls" />
+            <End Role="Tbls_Modulos" EntitySet="Tbls_Modulos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_PageInfos_Tbls" Association="Self.FK_Tbls_PageInfos_Tbls">
+            <End Role="Tbls" EntitySet="Tbls" />
+            <End Role="Tbls_PageInfos" EntitySet="Tbls_PageInfos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_Querys_Tbls" Association="Self.FK_Tbls_Querys_Tbls">
+            <End Role="Tbls" EntitySet="Tbls" />
+            <End Role="Tbls_Querys" EntitySet="Tbls_Querys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbls_Sorts_Tbls" Association="Self.FK_Tbls_Sorts_Tbls">
+            <End Role="Tbls" EntitySet="Tbls" />
+            <End Role="Tbls_Sorts" EntitySet="Tbls_Sorts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temas_Colors_Temas" Association="Self.FK_Temas_Colors_Temas">
+            <End Role="Temas" EntitySet="Temas" />
+            <End Role="Temas_Colors" EntitySet="Temas_Colors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Temas_Css_Temas" Association="Self.FK_Temas_Css_Temas">
+            <End Role="Temas" EntitySet="Temas" />
+            <End Role="Temas_Css" EntitySet="Temas_Css" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBSystemModelStoreContainer" CdmEntityContainer="DBSystemEntities">
+          <EntitySetMapping Name="Btns">
+            <EntityTypeMapping TypeName="DBSystemModel.Btns">
+              <MappingFragment StoreEntitySet="Btns">
+                <ScalarProperty Name="grupo" ColumnName="grupo" />
+                <ScalarProperty Name="template_id" ColumnName="template_id" />
+                <ScalarProperty Name="bpath" ColumnName="bpath" />
+                <ScalarProperty Name="click_event" ColumnName="click_event" />
+                <ScalarProperty Name="classe" ColumnName="classe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campos">
+            <EntityTypeMapping TypeName="DBSystemModel.Campos">
+              <MappingFragment StoreEntitySet="Campos">
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="linha" ColumnName="linha" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campos_DataMinMax">
+            <EntityTypeMapping TypeName="DBSystemModel.Campos_DataMinMax">
+              <MappingFragment StoreEntitySet="Campos_DataMinMax">
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Data_Minima" ColumnName="Data_Minima" />
+                <ScalarProperty Name="Data_Maxima" ColumnName="Data_Maxima" />
+                <ScalarProperty Name="Definir_Minimo" ColumnName="Definir_Minimo" />
+                <ScalarProperty Name="Definir_Maximo" ColumnName="Definir_Maximo" />
+                <ScalarProperty Name="Minimo_Today" ColumnName="Minimo_Today" />
+                <ScalarProperty Name="Maximo_Today" ColumnName="Maximo_Today" />
+                <ScalarProperty Name="Edicao" ColumnName="Edicao" />
+                <ScalarProperty Name="Formato" ColumnName="Formato" />
+                <ScalarProperty Name="Data_Inclusao" ColumnName="Data_Inclusao" />
+                <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
+                <ScalarProperty Name="Local_Alteracao" ColumnName="Local_Alteracao" />
+                <ScalarProperty Name="Data_Exclusao" ColumnName="Data_Exclusao" />
+                <ScalarProperty Name="excluido" ColumnName="excluido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campos_Descricoes">
+            <EntityTypeMapping TypeName="DBSystemModel.Campos_Descricoes">
+              <MappingFragment StoreEntitySet="Campos_Descricoes">
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Linguagem" ColumnName="Linguagem" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Placeholder" ColumnName="Placeholder" />
+                <ScalarProperty Name="Informacao" ColumnName="Informacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campos_ImagensUrl">
+            <EntityTypeMapping TypeName="DBSystemModel.Campos_ImagensUrl">
+              <MappingFragment StoreEntitySet="Campos_ImagensUrl">
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Descricao_Default" ColumnName="Descricao_Default" />
+                <ScalarProperty Name="Descricao_Back" ColumnName="Descricao_Back" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campos_Length_Limites">
+            <EntityTypeMapping TypeName="DBSystemModel.Campos_Length_Limites">
+              <MappingFragment StoreEntitySet="Campos_Length_Limites">
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Min_Length" ColumnName="Min_Length" />
+                <ScalarProperty Name="Max_Length" ColumnName="Max_Length" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campos_Methods">
+            <EntityTypeMapping TypeName="DBSystemModel.Campos_Methods">
+              <MappingFragment StoreEntitySet="Campos_Methods">
+                <ScalarProperty Name="Modulo" ColumnName="Modulo" />
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Method" ColumnName="Method" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campos_MinMax">
+            <EntityTypeMapping TypeName="DBSystemModel.Campos_MinMax">
+              <MappingFragment StoreEntitySet="Campos_MinMax">
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Valor_Minimo" ColumnName="Valor_Minimo" />
+                <ScalarProperty Name="Valor_Maximo" ColumnName="Valor_Maximo" />
+                <ScalarProperty Name="Definir_Minimo" ColumnName="Definir_Minimo" />
+                <ScalarProperty Name="Definir_Maximo" ColumnName="Definir_Maximo" />
+                <ScalarProperty Name="Edicao" ColumnName="Edicao" />
+                <ScalarProperty Name="Formato" ColumnName="Formato" />
+                <ScalarProperty Name="Data_Inclusao" ColumnName="Data_Inclusao" />
+                <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
+                <ScalarProperty Name="Local_Alteracao" ColumnName="Local_Alteracao" />
+                <ScalarProperty Name="Data_Exclusao" ColumnName="Data_Exclusao" />
+                <ScalarProperty Name="excluido" ColumnName="excluido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campos_Modulos">
+            <EntityTypeMapping TypeName="DBSystemModel.Campos_Modulos">
+              <MappingFragment StoreEntitySet="Campos_Modulos">
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Modulo" ColumnName="Modulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campos_Seq">
+            <EntityTypeMapping TypeName="DBSystemModel.Campos_Seq">
+              <MappingFragment StoreEntitySet="Campos_Seq">
+                <ScalarProperty Name="Modulo" ColumnName="Modulo" />
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Sequencia" ColumnName="Sequencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campos_Seq_Panels">
+            <EntityTypeMapping TypeName="DBSystemModel.Campos_Seq_Panels">
+              <MappingFragment StoreEntitySet="Campos_Seq_Panels">
+                <ScalarProperty Name="Modulo" ColumnName="Modulo" />
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Panel" ColumnName="Panel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComboList">
+            <EntityTypeMapping TypeName="DBSystemModel.ComboList">
+              <MappingFragment StoreEntitySet="ComboList">
+                <ScalarProperty Name="Linguagem" ColumnName="Linguagem" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Ordem" ColumnName="Ordem" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="qCadastros" ColumnName="qCadastros" />
+                <ScalarProperty Name="qProdutos" ColumnName="qProdutos" />
+                <ScalarProperty Name="qTributacoes" ColumnName="qTributacoes" />
+                <ScalarProperty Name="qNFe" ColumnName="qNFe" />
+                <ScalarProperty Name="qParametros" ColumnName="qParametros" />
+                <ScalarProperty Name="qMovimentacoes" ColumnName="qMovimentacoes" />
+                <ScalarProperty Name="qEstoque" ColumnName="qEstoque" />
+                <ScalarProperty Name="Data_Inclusao" ColumnName="Data_Inclusao" />
+                <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
+                <ScalarProperty Name="Local_Alteracao" ColumnName="Local_Alteracao" />
+                <ScalarProperty Name="Data_Exclusao" ColumnName="Data_Exclusao" />
+                <ScalarProperty Name="excluido" ColumnName="excluido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mensagens">
+            <EntityTypeMapping TypeName="DBSystemModel.Mensagens">
+              <MappingFragment StoreEntitySet="Mensagens">
+                <ScalarProperty Name="Linguagem" ColumnName="Linguagem" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Funcao" ColumnName="Funcao" />
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Comum" ColumnName="Comum" />
+                <ScalarProperty Name="Grupo" ColumnName="Grupo" />
+                <ScalarProperty Name="Mensagem" ColumnName="Mensagem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Methods_Check">
+            <EntityTypeMapping TypeName="DBSystemModel.Methods_Check">
+              <MappingFragment StoreEntitySet="Methods_Check">
+                <ScalarProperty Name="Modulo" ColumnName="Modulo" />
+                <ScalarProperty Name="Method" ColumnName="Method" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbls">
+            <EntityTypeMapping TypeName="DBSystemModel.Tbls">
+              <MappingFragment StoreEntitySet="Tbls">
+                <ScalarProperty Name="tbl" ColumnName="tbl" />
+                <ScalarProperty Name="tbl_referencia" ColumnName="tbl_referencia" />
+                <ScalarProperty Name="start_name" ColumnName="start_name" />
+                <ScalarProperty Name="table_name" ColumnName="table_name" />
+                <ScalarProperty Name="show_header" ColumnName="show_header" />
+                <ScalarProperty Name="pauta_index" ColumnName="pauta_index" />
+                <ScalarProperty Name="fitcontent" ColumnName="fitcontent" />
+                <ScalarProperty Name="resize" ColumnName="resize" />
+                <ScalarProperty Name="drilldown" ColumnName="drilldown" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="preview" ColumnName="preview" />
+                <ScalarProperty Name="red_button" ColumnName="red_button" />
+                <ScalarProperty Name="table_width" ColumnName="table_width" />
+                <ScalarProperty Name="bpath" ColumnName="bpath" />
+                <ScalarProperty Name="rowspan" ColumnName="rowspan" />
+                <ScalarProperty Name="template_header" ColumnName="template_header" />
+                <ScalarProperty Name="template_itens" ColumnName="template_itens" />
+                <ScalarProperty Name="template_options" ColumnName="template_options" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbls_ClickEvents">
+            <EntityTypeMapping TypeName="DBSystemModel.Tbls_ClickEvents">
+              <MappingFragment StoreEntitySet="Tbls_ClickEvents">
+                <ScalarProperty Name="tbl" ColumnName="tbl" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="click_event" ColumnName="click_event" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbls_Modulos">
+            <EntityTypeMapping TypeName="DBSystemModel.Tbls_Modulos">
+              <MappingFragment StoreEntitySet="Tbls_Modulos">
+                <ScalarProperty Name="tbl" ColumnName="tbl" />
+                <ScalarProperty Name="Modulo" ColumnName="Modulo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbls_PageInfos">
+            <EntityTypeMapping TypeName="DBSystemModel.Tbls_PageInfos">
+              <MappingFragment StoreEntitySet="Tbls_PageInfos">
+                <ScalarProperty Name="tbl" ColumnName="tbl" />
+                <ScalarProperty Name="Quantidade_Linhas_Pagina" ColumnName="Quantidade_Linhas_Pagina" />
+                <ScalarProperty Name="Campo_Default" ColumnName="Campo_Default" />
+                <ScalarProperty Name="Label_Id_NotFound" ColumnName="Label_Id_NotFound" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbls_Querys">
+            <EntityTypeMapping TypeName="DBSystemModel.Tbls_Querys">
+              <MappingFragment StoreEntitySet="Tbls_Querys">
+                <ScalarProperty Name="tbl" ColumnName="tbl" />
+                <ScalarProperty Name="From_" ColumnName="From_" />
+                <ScalarProperty Name="Select_" ColumnName="Select_" />
+                <ScalarProperty Name="Where_" ColumnName="Where_" />
+                <ScalarProperty Name="GroupBy_" ColumnName="GroupBy_" />
+                <ScalarProperty Name="Count_Total" ColumnName="Count_Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbls_Sorts">
+            <EntityTypeMapping TypeName="DBSystemModel.Tbls_Sorts">
+              <MappingFragment StoreEntitySet="Tbls_Sorts">
+                <ScalarProperty Name="tbl" ColumnName="tbl" />
+                <ScalarProperty Name="Campo" ColumnName="Campo" />
+                <ScalarProperty Name="Campo_BD" ColumnName="Campo_BD" />
+                <ScalarProperty Name="Order_From_Select" ColumnName="Order_From_Select" />
+                <ScalarProperty Name="optional_order" ColumnName="optional_order" />
+                <ScalarProperty Name="compactar_descricao" ColumnName="compactar_descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Temas">
+            <EntityTypeMapping TypeName="DBSystemModel.Temas">
+              <MappingFragment StoreEntitySet="Temas">
+                <ScalarProperty Name="Codigo_Tema" ColumnName="Codigo_Tema" />
+                <ScalarProperty Name="roundbutton" ColumnName="roundbutton" />
+                <ScalarProperty Name="Data_Inclusao" ColumnName="Data_Inclusao" />
+                <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
+                <ScalarProperty Name="Local_Alteracao" ColumnName="Local_Alteracao" />
+                <ScalarProperty Name="Data_Exclusao" ColumnName="Data_Exclusao" />
+                <ScalarProperty Name="excluido" ColumnName="excluido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Temas_Colors">
+            <EntityTypeMapping TypeName="DBSystemModel.Temas_Colors">
+              <MappingFragment StoreEntitySet="Temas_Colors">
+                <ScalarProperty Name="Codigo_Tema" ColumnName="Codigo_Tema" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="backcolor" ColumnName="backcolor" />
+                <ScalarProperty Name="Data_Inclusao" ColumnName="Data_Inclusao" />
+                <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
+                <ScalarProperty Name="Local_Alteracao" ColumnName="Local_Alteracao" />
+                <ScalarProperty Name="Data_Exclusao" ColumnName="Data_Exclusao" />
+                <ScalarProperty Name="excluido" ColumnName="excluido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Temas_Css">
+            <EntityTypeMapping TypeName="DBSystemModel.Temas_Css">
+              <MappingFragment StoreEntitySet="Temas_Css">
+                <ScalarProperty Name="Codigo_Tema" ColumnName="Codigo_Tema" />
+                <ScalarProperty Name="Sequencia" ColumnName="Sequencia" />
+                <ScalarProperty Name="selector" ColumnName="selector" />
+                <ScalarProperty Name="prop" ColumnName="prop" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="Data_Inclusao" ColumnName="Data_Inclusao" />
+                <ScalarProperty Name="Data_Alteracao" ColumnName="Data_Alteracao" />
+                <ScalarProperty Name="Local_Alteracao" ColumnName="Local_Alteracao" />
+                <ScalarProperty Name="Data_Exclusao" ColumnName="Data_Exclusao" />
+                <ScalarProperty Name="excluido" ColumnName="excluido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Templates">
+            <EntityTypeMapping TypeName="DBSystemModel.Templates">
+              <MappingFragment StoreEntitySet="Templates">
+                <ScalarProperty Name="template_id" ColumnName="template_id" />
+                <ScalarProperty Name="template" ColumnName="template" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

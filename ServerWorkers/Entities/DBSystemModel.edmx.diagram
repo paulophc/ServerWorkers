@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="66137d18b34848ed88e5f1f32a87ca6b" Name="Diagram1">
+        <EntityTypeShape EntityType="DBSystemModel.Btns" Width="1.5" PointX="8" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Campos" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Campos_DataMinMax" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Campos_Descricoes" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Campos_ImagensUrl" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Campos_Length_Limites" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Campos_Methods" Width="1.5" PointX="3" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Campos_MinMax" Width="1.5" PointX="3" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Campos_Modulos" Width="1.5" PointX="3" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Campos_Seq" Width="1.5" PointX="3" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Campos_Seq_Panels" Width="1.5" PointX="5.25" PointY="29.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.ComboList" Width="1.5" PointX="10.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Mensagens" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Methods_Check" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Tbls" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Tbls_ClickEvents" Width="1.5" PointX="6" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Tbls_Modulos" Width="1.5" PointX="6" PointY="24.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Tbls_PageInfos" Width="1.5" PointX="6" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Tbls_Querys" Width="1.5" PointX="6" PointY="32.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Tbls_Sorts" Width="1.5" PointX="6" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Temas" Width="1.5" PointX="5.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Temas_Colors" Width="1.5" PointX="8" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Temas_Css" Width="1.5" PointX="8" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBSystemModel.Templates" Width="1.5" PointX="5.75" PointY="11.25" IsExpanded="true" />
+        <AssociationConnector Association="DBSystemModel.FK_Btns_Templates" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Campos_Descricoes_Campos" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Campos_ImagensUrl_Campos" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Campos_Length_Limites_Campos" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Campos_Methods_Campos" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Campos_Modulos_Campos" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Campos_Seq_Campos" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Parametros_DataMinMax_Campos" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Parametros_MinMax_Campos" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Tbl_Sort_Campos" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Tbls_PageInfos_Campos" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Campos_Seq_Panels_Campos_Seq" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Tbls_ClickEvents_Tbls" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Tbls_Modulos_Tbls" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Tbls_PageInfos_Tbls" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Tbls_Querys_Tbls" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Tbls_Sorts_Tbls" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Temas_Colors_Temas" ManuallyRouted="false" />
+        <AssociationConnector Association="DBSystemModel.FK_Temas_Css_Temas" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

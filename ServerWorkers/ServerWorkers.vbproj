@@ -1,0 +1,517 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{1E892830-275C-48E3-A085-0EF9E8B85588}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ServerWorkers</RootNamespace>
+    <AssemblyName>ServerWorkers</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MyType>Custom</MyType>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>ServerWorkers.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>ServerWorkers.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Caching" />
+    <Import Include="System.Web.SessionState" />
+    <Import Include="System.Web.Security" />
+    <Import Include="System.Web.Profile" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.WebControls" />
+    <Import Include="System.Web.UI.WebControls.WebParts" />
+    <Import Include="System.Web.UI.HtmlControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\DBSystem.mdf" />
+    <Content Include="App_Data\DBSystem_log.ldf">
+      <DependentUpon>DBSystem.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\DBWorkers.mdf" />
+    <Content Include="App_Data\DBWorkers_log.ldf">
+      <DependentUpon>DBWorkers.mdf</DependentUpon>
+    </Content>
+    <Content Include="css\bootstrap-switch.css" />
+    <Content Include="css\geral.css" />
+    <Content Include="css\jqpagination.css" />
+    <Content Include="css\jquery-ui\images\animated-overlay.gif" />
+    <Content Include="css\jquery-ui\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="css\jquery-ui\images\ui-icons_222222_256x240.png" />
+    <Content Include="css\jquery-ui\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="css\jquery-ui\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="css\jquery-ui\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="css\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\jquery-ui\jquery-ui-1.10.3.custom.css" />
+    <Content Include="css\jquery-ui\jquery-ui.css" />
+    <Content Include="css\jquery-ui\jquery.ui.accordion.css" />
+    <Content Include="css\jquery-ui\jquery.ui.all.css" />
+    <Content Include="css\jquery-ui\jquery.ui.autocomplete.css" />
+    <Content Include="css\jquery-ui\jquery.ui.base.css" />
+    <Content Include="css\jquery-ui\jquery.ui.button.css" />
+    <Content Include="css\jquery-ui\jquery.ui.core.css" />
+    <Content Include="css\jquery-ui\jquery.ui.datepicker.css" />
+    <Content Include="css\jquery-ui\jquery.ui.dialog.css" />
+    <Content Include="css\jquery-ui\jquery.ui.menu.css" />
+    <Content Include="css\jquery-ui\jquery.ui.progressbar.css" />
+    <Content Include="css\jquery-ui\jquery.ui.resizable.css" />
+    <Content Include="css\jquery-ui\jquery.ui.selectable.css" />
+    <Content Include="css\jquery-ui\jquery.ui.slider.css" />
+    <Content Include="css\jquery-ui\jquery.ui.spinner.css" />
+    <Content Include="css\jquery-ui\jquery.ui.tabs.css" />
+    <Content Include="css\jquery-ui\jquery.ui.theme.css" />
+    <Content Include="css\jquery-ui\jquery.ui.tooltip.css" />
+    <Content Include="css\slidemenu.css" />
+    <Content Include="css\windows8.css" />
+    <Content Include="Entities\DBSystemModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBSystemModel.edmx</DependentUpon>
+      <LastGenOutput>DBSystemModel.Context.vb</LastGenOutput>
+    </Content>
+    <Content Include="Entities\DBSystemModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DBSystemModel.edmx</DependentUpon>
+      <LastGenOutput>DBSystemModel.vb</LastGenOutput>
+    </Content>
+    <Content Include="Global.asax" />
+    <Content Include="images\data-icon-2.png" />
+    <Content Include="images\data-icon.png" />
+    <Content Include="images\DeleteRed-icon.png" />
+    <Content Include="images\Green-Sync-icon.png" />
+    <Content Include="images\Grey-Sync-icon.png" />
+    <Content Include="images\Interrogation-icon.png" />
+    <Content Include="images\navigate-down-icon.png" />
+    <Content Include="images\navigate-left-icon.png" />
+    <Content Include="images\navigate-right-icon.png" />
+    <Content Include="images\navigate-up-icon.png" />
+    <Content Include="images\Perspective-Button-Go-icon.png" />
+    <Content Include="images\Perspective-Button-Reboot-icon.png" />
+    <Content Include="images\search-icon.png" />
+    <Content Include="images\soft-pink-background.jpg" />
+    <Content Include="images\System-Recyclebin-Empty-icon.png" />
+    <Content Include="js\bootstrap-switch.js" />
+    <Content Include="js\detectmobilebrowser.js" />
+    <Content Include="js\jquery-1.9.1.js" />
+    <Content Include="js\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="js\jquery.jqpagination.js" />
+    <Content Include="js\jquery.ui.accordion.js" />
+    <Content Include="js\jquery.ui.autocomplete.js" />
+    <Content Include="js\jquery.ui.core.js" />
+    <Content Include="js\jquery.ui.draggable.js" />
+    <Content Include="js\jquery.ui.droppable.js" />
+    <Content Include="js\jquery.ui.menu.js" />
+    <Content Include="js\jquery.ui.mouse.js" />
+    <Content Include="js\jquery.ui.position.js" />
+    <Content Include="js\jquery.ui.resizable.js" />
+    <Content Include="js\jquery.ui.sortable.js" />
+    <Content Include="js\jquery.ui.touch-punch.min.js" />
+    <Content Include="js\jquery.ui.widget.js" />
+    <Content Include="js\shared.js" />
+    <Content Include="Web.config" />
+    <Content Include="Entities\WorkersModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WorkersModel.edmx</DependentUpon>
+      <LastGenOutput>WorkersModel.Context.vb</LastGenOutput>
+    </Content>
+    <Content Include="Entities\WorkersModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WorkersModel.edmx</DependentUpon>
+      <LastGenOutput>WorkersModel.vb</LastGenOutput>
+    </Content>
+    <Content Include="WorkersWebForm.aspx" />
+    <Content Include="Template\Workers_Template.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\WebApiConfig.vb" />
+    <Compile Include="Entities\Btns.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Campos.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Campos_DataMinMax.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Campos_Descricoes.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Campos_ImagensUrl.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Campos_Length_Limites.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Campos_Methods.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Campos_MinMax.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Campos_Modulos.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Campos_Seq.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Campos_Seq_Panels.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Class_Json\Request\cmbi.vb" />
+    <Compile Include="Class_Json\Request\cmd.vb" />
+    <Compile Include="Class_Json\Request\cmdi.vb" />
+    <Compile Include="Class_Json\Request\cmd_btn.vb" />
+    <Compile Include="Class_Json\Request\cmd_header.vb" />
+    <Compile Include="Class_Json\Request\cmd_img.vb" />
+    <Compile Include="Class_Json\Request\cmd_itens.vb" />
+    <Compile Include="Class_Json\Request\cmd_span.vb" />
+    <Compile Include="Class_Json\Request\cmip.vb" />
+    <Compile Include="Class_Json\Request\cmpi.vb" />
+    <Compile Include="Class_Json\Request\cmri.vb" />
+    <Compile Include="Class_Json\Request\cmti.vb" />
+    <Compile Include="Class_Json\Request\Lista_Buttons.vb" />
+    <Compile Include="Class_Json\Request\Lista_Extra.vb" />
+    <Compile Include="Class_Json\Request\Lista_Hide.vb" />
+    <Compile Include="Class_Json\Request\Lista_Img.vb" />
+    <Compile Include="Class_Json\Request\Lista_IPH.vb" />
+    <Compile Include="Class_Json\Request\Lista_Msg.vb" />
+    <Compile Include="Class_Json\Request\Lista_NewTags.vb" />
+    <Compile Include="Class_Json\Request\Lista_Options.vb" />
+    <Compile Include="Class_Json\Request\Lista_Request.vb" />
+    <Compile Include="Class_Json\Request\Lista_Selects.vb" />
+    <Compile Include="Class_Json\Request\Lista_YesNo.vb" />
+    <Compile Include="Class_Json\Request\tcolor.vb" />
+    <Compile Include="Class_Json\Request\tema.vb" />
+    <Compile Include="Class_Json\Request\trOptions.vb" />
+    <Compile Include="Class_Program\iMensagens.vb" />
+    <Compile Include="Class_Program\imgpath.vb" />
+    <Compile Include="Class_Program\iParametros.vb" />
+    <Compile Include="Class_Program\Lista_Audit.vb" />
+    <Compile Include="Class_Program\Lista_AutoComplete.vb" />
+    <Compile Include="Class_Program\Lista_Campos_Descricoes.vb" />
+    <Compile Include="Class_Program\Lista_DataMinMax.vb" />
+    <Compile Include="Class_Program\Lista_Dispositivos.vb" />
+    <Compile Include="Class_Program\Lista_Mensagens.vb" />
+    <Compile Include="Class_Program\Lista_MinMax.vb" />
+    <Compile Include="Class_Program\Lista_MsgErr.vb" />
+    <Compile Include="Class_Program\Lista_PageInfos.vb" />
+    <Compile Include="Class_Program\Lista_PageRows.vb" />
+    <Compile Include="Class_Program\Lista_Parametros.vb" />
+    <Compile Include="Class_Program\Lista_PNames.vb" />
+    <Compile Include="Class_Program\Lista_PPR.vb" />
+    <Compile Include="Class_Program\Lista_Sorts.vb" />
+    <Compile Include="Class_Program\Lista_TblNames.vb" />
+    <Compile Include="Class_Program\Lista_VerbalDates.vb" />
+    <Compile Include="Class_Program\Lista_xlCellRed.vb" />
+    <Compile Include="Class_Program\Lista_xlFails.vb" />
+    <Compile Include="Class_Program\Lista_xlParams.vb" />
+    <Compile Include="Class_Program\ProdSearch.vb" />
+    <Compile Include="Class_Program\RecentsParameters.vb" />
+    <Compile Include="Class_Program\Simple3Des.vb" />
+    <Compile Include="Class_Program\SortParameters.vb" />
+    <Compile Include="Class_Program\UserToken.vb" />
+    <Compile Include="Entities\ComboList.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\WorkersController.vb" />
+    <Compile Include="Entities\DBSystemModel.Context.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBSystemModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DBSystemModel.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBSystemModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\DBSystemModel.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.vb">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Class_Json\Parametros\Lista_Workers.vb" />
+    <Compile Include="GlobalFunctions.vb" />
+    <Compile Include="Entities\Mensagens.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Methods_Check.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Remote_Workers.vb" />
+    <Compile Include="Module\Module1.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\MyExtensions\MyWebExtension.vb">
+      <VBMyExtensionTemplateID>Microsoft.VisualBasic.Web.MyExtension</VBMyExtensionTemplateID>
+      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Entities\Tbls.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Tbls_ClickEvents.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Tbls_Modulos.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Tbls_PageInfos.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Tbls_Querys.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Tbls_Sorts.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Temas.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Temas_Colors.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Temas_Css.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Templates.vb">
+      <DependentUpon>DBSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Workers.vb">
+      <DependentUpon>WorkersModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\WorkersModel.Context.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkersModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\WorkersModel.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkersModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\WorkersModel.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkersModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkersWebForm.aspx.designer.vb">
+      <DependentUpon>WorkersWebForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WorkersWebForm.aspx.vb">
+      <DependentUpon>WorkersWebForm.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Template\Workers_Template.aspx.designer.vb">
+      <DependentUpon>Workers_Template.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Template\Workers_Template.aspx.vb">
+      <DependentUpon>Workers_Template.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Entities\DBSystemModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DBSystemModel.Designer.vb</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Entities\DBSystemModel.edmx.diagram">
+      <DependentUpon>DBSystemModel.edmx</DependentUpon>
+    </Content>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <EntityDeploy Include="Entities\WorkersModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WorkersModel.Designer.vb</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Entities\WorkersModel.edmx.diagram">
+      <DependentUpon>WorkersModel.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>7607</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:7607/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
