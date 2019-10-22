@@ -10,8 +10,7 @@ var block_pages_start_name = ""
 var tema, cmips, cmdis, cmpi, cmtis, cmbis, cmris
 var jfunctions = []
 
-$(document).ready(function ()
-{
+$(document).ready(function () {
     // Seta jfunctions c/ as funcoes que serao processadas no retorno do callback (Success)
     Set_jfunctions()
 
@@ -24,8 +23,7 @@ $(document).ready(function ()
     $('a').not('.first, .previous, .next, .last').click(function (e) { e.preventDefault(); Collect_Params(this.id, "menu_button", true, false) });
 
     // Associa o evento click para o menu de slide
-    $('.menu-anchor').on('click touchstart', function (e)
-    {
+    $('.menu-anchor').on('click touchstart', function (e) {
         $('html').toggleClass('menu-active');
         e.preventDefault();
     });
@@ -34,8 +32,7 @@ $(document).ready(function ()
     $('#LogoffButton, #RemoveSessionButton, #CadUserButton, #AlterLoginButton, #UserId_Img').click(function (e) { e.preventDefault(); Collect_Params(this.id, "user_button", true, false) });
 
     // Exibe ou oculta os buttons relacionados ao Login
-    $("#UserId_Img").click(function (e)
-    {
+    $("#UserId_Img").click(function (e) {
         e.preventDefault();
 
         var u_buttons = "#LogoffButton, #RemoveSessionButton, #CadUserButton, #AlterLoginButton"
@@ -55,8 +52,7 @@ $(document).ready(function ()
 
     // Associa o evento p/click p/ FixMenuContainerButton
     // Define a altura do MainPanel, e associa o evento resize p/ manter sempre a mesma altura com o HeaderPanel fixado na parte superior na 'window'.
-    $('#FixMenuContainerButton').click(function (e)
-    {
+    $('#FixMenuContainerButton').click(function (e) {
         e.preventDefault();
         Fix_HeaderPanel(($(this).attr("src") == "images/navigate-up-icon.png"))
     });
@@ -68,31 +64,26 @@ $(document).ready(function ()
     $('#ImgFileButton, #ExcelImportButton').click(function (e) { e.preventDefault(); $("#" + ((this.id == "ImgFileButton") ? "ImgFile" : "xlFile")).click() });
 
     // Associa o evento change p/ ler arquivo c/ FileReader e em seguida chamar UploadFile
-    $('#ImgFile, #xlFile').change(function (e)
-    {
+    $('#ImgFile, #xlFile').change(function (e) {
         e.preventDefault;
 
         var file, isImage
         var files = this.files
 
-        for (var i = 0; i <= files.length - 1; i++)
-        {
+        for (var i = 0; i <= files.length - 1; i++) {
             file = files[i]
             isImage = file.type.indexOf("image") >= 0
 
-            if (isImage || checkfile_extension(file.name, new Array(".xlsx", ".xls", ".csv")))
-            {
+            if (isImage || checkfile_extension(file.name, new Array(".xlsx", ".xls", ".csv"))) {
                 if (file.size <= 20971520)  // 20Mb
                 {
                     UploadFile(file, isImage, (i == files.length - 1))
                 }
-                else
-                {
+                else {
                     Collect_Params('FileSizeAlert', file.name, false, false)
                 }
             }
-            else
-            {
+            else {
                 Collect_Params('FileFormatAlert', file.name, false, false)
             }
         }
@@ -111,12 +102,10 @@ $(document).ready(function ()
 // ------------------ Funções relacionadas 'a Focus, Blur, EnterTab -------------------
 
 // Associa o evento Focus p/ as tags input, select, textarea e checkbox para alterar color e backgroud-color e remover o placeholder dos selects
-function Set_Focus(newtags)
-{
+function Set_Focus(newtags) {
     var item, element
 
-    for (var i = 0; i <= newtags.length - 1; i++)
-    {
+    for (var i = 0; i <= newtags.length - 1; i++) {
         item = newtags[i]
         element = $("#" + item.id)
         element.off("focus", Focus_function).on("focus", Focus_function)
@@ -126,10 +115,8 @@ function Set_Focus(newtags)
 }
 
 // Associa o evento Focus p/ as tags input, select, textarea e checkbox para alterar color e backgroud-color e remover o placeholder dos selects
-function Focus_function()
-{
-    if ($(this).is("select"))
-    {
+function Focus_function() {
+    if ($(this).is("select")) {
         $("#" + this.id + " option[value='phd']").remove()
 
         // Como no IE mesmo apos definindo a propriedade css do elemento select os "options" ainda ficam
@@ -138,8 +125,7 @@ function Focus_function()
         // o box de opcoes nao e' aberto automaticamente, porem, no ambiente touchscreen este efeito nao ocorre. 
         Set_Color($("#" + this.id + " option"), "default", true, true, false)
     }
-    else if ($(this).is("input[type=text]"))
-    {
+    else if ($(this).is("input[type=text]")) {
         this.select()
     }
 
@@ -149,14 +135,11 @@ function Focus_function()
 }
 
 // Associa o evento change p/ a tag select ou checkbox
-function Select_Change_function(event)
-{
-    if (event.data.params)
-    {
+function Select_Change_function(event) {
+    if (event.data.params) {
         Collect_Params(this.id, "change", event.data.send_token, event.data.preloader);
     }
-    else
-    {
+    else {
         Collect_Param_Element($(this), "change", event.data.send_token, event.data.preloader);
     }
 
@@ -170,36 +153,29 @@ function Select_Change_function(event)
 function Focus_codigo() { $("#tipo, #codigo").val("") }
 
 // Associa o evento Blur p/ as tags input, select, textarea e checkbox para alterar o background-color para white
-function Set_Blur(newtags)
-{
+function Set_Blur(newtags) {
     var item
-    for (var i = 0; i <= newtags.length - 1; i++)
-    {
+    for (var i = 0; i <= newtags.length - 1; i++) {
         item = newtags[i]
         $("#" + item.id).off("blur", Blur_function).on("blur", Blur_function)
     };
 }
 
 // Associa o evento Blur p/ as tags input e select para alterar o background-color para white
-function Blur_function()
-{
+function Blur_function() {
     last_focus = ($(this).is("select, input, textarea")) ? $(this).attr("id") : ""
-    $(box_selector).each(function ()
-    {
-        if (!($(this).get(0).style.color == "red"))
-        {
+    $(box_selector).each(function () {
+        if (!($(this).get(0).style.color == "red")) {
             Set_Color($(this), "default", false, true, false)
         }
     });
 }
 
 // Associa os eventos keypress e keydown p/ as tags input e select (para detectar o pressionamento do Enter e Tab)
-function Set_EnterTab(newtags)
-{
+function Set_EnterTab(newtags) {
     var item
 
-    for (var i = 0; i <= newtags.length - 1; i++)
-    {
+    for (var i = 0; i <= newtags.length - 1; i++) {
         item = newtags[i]
         $("#" + item.id).off("keydown", EnterTab_function).on("keydown", { params: item.params, send_token: item.token, preloader: item.preview }, EnterTab_function)
     }
@@ -215,21 +191,16 @@ function Set_EnterTab(newtags)
 }
 
 // Função usada para que o Enter se comporte como Tab
-function EnterTab_function(e)
-{
-    if (e.keyCode == 13 || (e.keyCode == 9 && !e.shiftKey))
-    {
+function EnterTab_function(e) {
+    if (e.keyCode == 13 || (e.keyCode == 9 && !e.shiftKey)) {
         var element = $(this)
-        if (!element.is("textarea") || (element.is("textarea") && element.val() == ""))
-        {
+        if (!element.is("textarea") || (element.is("textarea") && element.val() == "")) {
             e.preventDefault();
 
-            if (e.data.params)
-            {
+            if (e.data.params) {
                 Collect_Params(this.id, "enter", e.data.send_token, true, e.data.preloader)
             }
-            else
-            {
+            else {
                 Collect_Param_Element(element, "enter", e.data.send_token, e.data.preloader)
             }
 
@@ -242,24 +213,19 @@ function EnterTab_function(e)
             // Posiciona no proximo elemento
             if (e.keyCode == 13 || e.keyCode == 9) { Goto_Next_Element(this) }
         }
-        else
-        {
+        else {
             var lines = element.val().split(/\r|\r\n|\n/);
             var br_rows = 0
             var new_text = ""
 
             // Verifica no elemento textarea se ha 2 LFs teclados seguidamente no final
             // prepara o valor removendo os LFs extras e envia a informacao p/ o Server.
-            for (var i = lines.length - 1; i >= 0; i--)
-            {
-                if (lines[i].trim() == "")
-                {
+            for (var i = lines.length - 1; i >= 0; i--) {
+                if (lines[i].trim() == "") {
                     br_rows += 1;
-                    if (br_rows == 2)
-                    {
+                    if (br_rows == 2) {
                         // Se o textarea = space(1), posiciona no proximo elemento
-                        if (element.val().replace("\r", "").replace("\n", "") != " ")
-                        {
+                        if (element.val().replace("\r", "").replace("\n", "") != " ") {
                             // Reatualiza o valor no elemento textarea p/ remover os LF extras. Caso contrario,
                             // ao posicionar novamente no campo e teclar <Enter> no final do conteudo, serao computados os LFs informados anteriormente.
                             for (x = 0; x <= i - 1; x++) { new_text += lines[x] + "\n" }
@@ -269,15 +235,13 @@ function EnterTab_function(e)
                             Goto_Next_Element(this) // Posiciona no proximo elemento
                             break;
                         }
-                        else
-                        {
+                        else {
                             Goto_Next_Element(this) // Posiciona no proximo elemento
                             break;
                         }
                     }
                 }
-                else
-                {
+                else {
                     break
                 }
             }
@@ -287,8 +251,7 @@ function EnterTab_function(e)
 };
 
 // Posiciona no proximo elemento
-function Goto_Next_Element(element)
-{
+function Goto_Next_Element(element) {
     var nextElement = $('[tabindex="' + (element.tabIndex + 1) + '"]');
     if (nextElement.length) { nextElement.focus() } else { $('[tabindex="1"]').focus() };
 }
@@ -299,16 +262,13 @@ function Goto_Next_Element(element)
 // exec_first e' usada sempre que for necessario processar algum comando antes de qualquer outro comando;
 // por exemplo p/ remover todas as tr ou remover os options da tag select c/ empty() e etc.
 // exec e' usado p/ processar informacoes apos execucao de outras funcoes no 'Success'
-function Execs(exec)
-{
+function Execs(exec) {
     for (var i = 0; i <= exec.length - 1; i++) { eval(exec[i]) }
 }
 
 // Remove o elemento (usado para remover as linhas de Endereços, Fones, Emails e etc.)
-function Set_Remove(remove)
-{
-    for (var i = 0; i <= remove.length - 1; i++)
-    {
+function Set_Remove(remove) {
+    for (var i = 0; i <= remove.length - 1; i++) {
         var tr, table_name
 
         tr = $(remove[i]).first().is("tr")
@@ -322,11 +282,9 @@ function Set_Remove(remove)
 }
 
 // Remove as linhas que estao relacionadas à linha do drilldown.
-function Remove_dd(itens_dds)
-{
+function Remove_dd(itens_dds) {
     var sline, cmdi
-    for (var i = 0; i <= itens_dds.length - 1; i++)
-    {
+    for (var i = 0; i <= itens_dds.length - 1; i++) {
         sline = split_csv(itens_dds[i])  // tbl;parent1;parent2
         cmdi = get_cmdi(sline[0])
 
@@ -336,16 +294,13 @@ function Remove_dd(itens_dds)
 }
 
 // Remove as tr relacionadas à linha do htbl
-function Remove_linha(remove_lines)
-{
+function Remove_linha(remove_lines) {
     var sline, cmdi
-    for (var i = 0; i <= remove_lines.length - 1; i++)
-    {
+    for (var i = 0; i <= remove_lines.length - 1; i++) {
         sline = split_csv(remove_lines[i])  // tbl;linha
         cmdi = get_cmdi(sline[0])
 
-        if (sline[0] != "TNCMPIs" && sline[0] != "TNOPPIs")
-        {
+        if (sline[0] != "TNCMPIs" && sline[0] != "TNOPPIs") {
             $("tr[id^='" + cmdi.start_name + "_']").filter("tr[id$='" + sline[1] + "']").remove()
         }
         else // P/ nao remover _tr0_
@@ -357,25 +312,21 @@ function Remove_linha(remove_lines)
 }
 
 // Exibe ou oculta o elemento conforme a opção
-function Set_Hide(hide)
-{
+function Set_Hide(hide) {
     var sline
-    for (var i = 0; i <= hide.length - 1; i++)
-    {
+    for (var i = 0; i <= hide.length - 1; i++) {
         sline = split_csv(hide[i]) // id;True/False
         if (sline[1] == "True" || sline[1] == "true") { $("#" + sline[0]).hide() } else { $("#" + sline[0]).show() }
     };
 }
 
 // Define as informações dos selects (options)
-function Set_Combo(combo)
-{
+function Set_Combo(combo) {
     var selectIDs = [];
     var aOptions, html_string, sline
 
     // Obtem os ids das selects sem duplicados e armazena na array selectIDs
-    for (var i = 0; i <= combo.length - 1; i++)
-    {
+    for (var i = 0; i <= combo.length - 1; i++) {
         sline = split_csv(combo[i]) // id;value;text
         if (selectIDs.indexOf(sline[0]) < 0) { selectIDs.push(sline[0]) }
     };
@@ -383,31 +334,25 @@ function Set_Combo(combo)
     // Remove os options se houver 2 ou mais options.
     // Caso haja somente 1 option e este for placeholder, mantem os options,
     // ja que em alguns casos, e' serializado do servidor, somente os placeholders.
-    for (var i = 0; i <= selectIDs.length - 1; i++)
-    {
+    for (var i = 0; i <= selectIDs.length - 1; i++) {
         aOptions = $.grep(combo, function (e) { return e.startsWith(selectIDs[i]) });
 
-        if (aOptions.length > 1 || (aOptions.length == 1 && aOptions[0].indexOf(";phd;") < 0))
-        {
+        if (aOptions.length > 1 || (aOptions.length == 1 && aOptions[0].indexOf(";phd;") < 0)) {
             $("#" + selectIDs[i]).empty();
         }
     };
 
     // Adiciona o option na select correspondente.
-    for (var i = 0; i <= combo.length - 1; i++)
-    {
+    for (var i = 0; i <= combo.length - 1; i++) {
         sline = split_csv(combo[i]) // id;value;text
 
-        if ($("#" + sline[0] + " option[value='" + sline[1] + "']").length == 0)
-        {
+        if ($("#" + sline[0] + " option[value='" + sline[1] + "']").length == 0) {
             html_string = "<option value='" + sline[1] + "'>" + sline[2] + "</option>"
 
-            if (sline[1] == "phd")
-            {
+            if (sline[1] == "phd") {
                 $("#" + sline[0]).prepend(html_string)
             }
-            else
-            {
+            else {
                 $("#" + sline[0]).append(html_string)
             }
         }
@@ -415,72 +360,60 @@ function Set_Combo(combo)
 }
 
 // Define as informações dos inputs e selects
-function Set_Values(value)
-{
+function Set_Values(value) {
     var sline, element
 
-    for (var i = 0; i <= value.length - 1; i++)
-    {
+    for (var i = 0; i <= value.length - 1; i++) {
         sline = split_csv(value[i]) // id;value
         element = $("#" + sline[0])
         element.val(sline[1])
 
-        if ($(document.activeElement).is(element) && element.is("input[type=text]"))
-        {
+        if ($(document.activeElement).is(element) && element.is("input[type=text]")) {
             element.select()
         }
     };
 }
 
 // Define as informações dos labels
-function Set_Text(text)
-{
+function Set_Text(text) {
     var sline
-    for (var i = 0; i <= text.length - 1; i++)
-    {
+    for (var i = 0; i <= text.length - 1; i++) {
         sline = split_csv(text[i]) // id;text
         $("#" + sline[0]).text(sline[1])
     };
 }
 
 // Define os atributos usando .prop p/ placeholder, src, readonly, size, maxlength e etc.
-function Set_Prop(prop)
-{
+function Set_Prop(prop) {
     var sline
-    for (var i = 0; i <= prop.length - 1; i++)
-    {
+    for (var i = 0; i <= prop.length - 1; i++) {
         sline = split_csv(prop[i]) // id;atributo;value (obs: quando inicia c/ . usa css selector)
         $((sline[0].startsWith(".") ? "" : "#") + sline[0]).prop(sline[1], sline[2] != "false" ? sline[2] : false) // testa false p/ readonly e etc.
     };
 }
 
 // Altera a propriedade do css
-function Set_Css(css)
-{
+function Set_Css(css) {
     var sline
 
-    for (var i = 0; i <= css.length - 1; i++)
-    {
+    for (var i = 0; i <= css.length - 1; i++) {
         sline = split_csv(css[i]) // selector;property;value
         $(sline[0]).css(sline[1], sline[2])
     };
 }
 
 // Adiciona ou Remove a tr de opcoes
-function trOptions_Check(trOptions)
-{
+function trOptions_Check(trOptions) {
     var sline
 
-    for (var i = 0; i <= trOptions.length - 1; i++)
-    {
+    for (var i = 0; i <= trOptions.length - 1; i++) {
         sline = split_csv(trOptions[i]) // add;tbl;linha
         if (sline[0] == 'true') { Add_trOptions(sline[1], sline[2]) } else { Remove_trOptions(sline[1], sline[2]) }
     }
 }
 
 // Adiciona a tr de Opcoes
-function Add_trOptions(tbl, linha)
-{
+function Add_trOptions(tbl, linha) {
     var cmdi, cmdo, id_selecao, opc_selector, trs_lines, tr_option
     var tbl_exceptions = ['TNCMPIs', 'TNCMAIs', 'TNCMVIs', 'TNOPFIs', 'TNOPPIs']
 
@@ -505,32 +438,27 @@ function Add_trOptions(tbl, linha)
     tr_option.insertAfter(trs_lines.last())
 
     // Associa o evento click aos buttons ou imgs da tr adicionada.
-    $(opc_selector + ' button, ' + opc_selector + ' img').click(function (e)
-    {
+    $(opc_selector + ' button, ' + opc_selector + ' img').click(function (e) {
         e.preventDefault()
 
         Collect_Params(this.id, id_selecao, true, false)
 
-        if (this.id.indexOf("Image") < 0)
-        {
+        if (this.id.indexOf("Image") < 0) {
             Remove_trOptions(tbl, linha)
         }
-        else
-        {
+        else {
             // Para exibir imagens "fixa" o max-width do table, caso contrario se houver grande qtde. de imagens o layout e' alterado estendendo as celulas.
             $("#" + cmdi.table_name).css("max-width", $("#" + cmdi.table_name).width())
         }
     });
 
     var newtags = []
-    $(opc_selector + " input[type='text'], " + opc_selector + " select").each(function ()
-    {
+    $(opc_selector + " input[type='text'], " + opc_selector + " select").each(function () {
         newtags.push({ "id": this.id, "params": true, "token": true, "preview": true })
     })
 
     // Associa o Focus, Blur e KeyDown p/ inputs e selects da tr adicionada.
-    if (newtags.length)
-    {
+    if (newtags.length) {
         // Seta determinada tag com focus
         $("#" + newtags[0].id).focus()
 
@@ -548,8 +476,7 @@ function Add_trOptions(tbl, linha)
 }
 
 // Remove a tr de Opcoes
-function Remove_trOptions(tbl, linha)
-{
+function Remove_trOptions(tbl, linha) {
     var cmdi, cmdo, id_selecao, opc_selector
     var tbl_exceptions = ['TNCMPIs', 'TNCMAIs', 'TNCMVIs', 'TNOPFIs', 'TNOPPIs']
 
@@ -567,13 +494,11 @@ function Remove_trOptions(tbl, linha)
 }
 
 // Define o atributo tabindex dos elementos
-function Set_TabIndex(tabindex)
-{
+function Set_TabIndex(tabindex) {
     var item
     var index = 1
 
-    for (var i = 0; i <= tabindex.length - 1; i++)
-    {
+    for (var i = 0; i <= tabindex.length - 1; i++) {
         item = tabindex[i]
         $("#" + item.id).attr('tabindex', (item.hide) ? -1 : index)
         index += (item.hide) ? 0 : 1
@@ -581,16 +506,13 @@ function Set_TabIndex(tabindex)
 }
 
 // Seta determinada tag com o focus
-function Set_Next_Focus(next_focus)
-{
-    if (next_focus == "MessagesPanel" || next_focus.match("_h3"))
-    {
+function Set_Next_Focus(next_focus) {
+    if (next_focus == "MessagesPanel" || next_focus.match("_h3")) {
         var wtag = ($("#FixMenuContainerButton").attr("src").indexOf("up-icon")) >= 0 ? "html, body" : "#MainPanel"
         var msg_panel_offset = parseInt($("#MainPanel").scrollTop()) + parseInt($("#" + next_focus).offset().top) - $("#HeaderPanel").height() - 10 // 10 p/ adicionar um "padding"
         $(wtag).animate({ scrollTop: msg_panel_offset }, 'slow');
     }
-    else
-    {
+    else {
         var element = $("#" + next_focus)
         element.focus()
 
@@ -601,8 +523,7 @@ function Set_Next_Focus(next_focus)
 }
 
 // Efetua chamadas p/ Set_EnterTab, Set_Focus e Set_Blur p/ associar os eventos keypress, keydown, focus e blur c/ os elementos de newtags
-function Set_NewTags(newtags)
-{
+function Set_NewTags(newtags) {
     // Associa os eventos keypress e keydown para a função EnterTab_function (para detectar o pressionamento do Enter e Tab)
     Set_EnterTab(newtags)
 
@@ -614,12 +535,9 @@ function Set_NewTags(newtags)
 }
 
 // Associa a funcao autocomplete para alguns elementos
-function Set_AutoCompl(autocompl)
-{
-    for (var i = 0; i <= autocompl.length - 1; i++)
-    {
-        if ($("#" + autocompl[i]).length > 0)
-        {
+function Set_AutoCompl(autocompl) {
+    for (var i = 0; i <= autocompl.length - 1; i++) {
+        if ($("#" + autocompl[i]).length > 0) {
             Set_Autocomplete(autocompl[i], Get_PageName() + "/Get_AutoComplete")
             $("#" + autocompl[i]).off("focus", Focus_codigo).on("focus", Focus_codigo)
         }
@@ -627,126 +545,118 @@ function Set_AutoCompl(autocompl)
 }
 
 // Habilita ou desabilita o autocomplete.
-function Set_AutoCompl_Enable(autocompl_enable)
-{
+function Set_AutoCompl_Enable(autocompl_enable) {
     var sline
-    for (var i = 0; i <= autocompl_enable.length - 1; i++)
-    {
+    for (var i = 0; i <= autocompl_enable.length - 1; i++) {
         sline = split_csv(autocompl_enable[i]) // id;true/false
         $("#" + sline[0]).autocomplete(sline[1] == "true" ? "enable" : "disable")
     };
 }
 
 // Exibe o Painel de Mensagens com a mensagem recebida do retorno do CallBack
-function Show_Msg(msg)
-{
+function Show_Msg(msg) {
     var item, html_line, name_id_table
 
-    for (var i = 0; i <= msg.length - 1; i++)
-    {
-        item = msg[i]
-        name_id_table = ""
+    for (var i = 0; i <= msg.length - 1; i++) {
+        // adicionado a function() abaixo com _i = i, pois como setTimeout e' assincrono,
+        // ele nao roda ate que o script esteja terminado, ou seja e' exibido somente a ultima mensagem em MessagesPanel.
+        (function () {    // create a closure (new scope)
+            var _i = i;   // make a local copy of `i` from the outer scope
 
-        $("#msgPanel_" + item.id).remove()
+            item = msg[_i]
+            name_id_table = ""
 
-        if (!item.close)
-        {
-            if ($("#" + item.id).parent().is("td") && item.panelMsg == false)
-            {
-                // Inicializa name_id com  o nome da tr do id
-                name_id = $("#" + item.id).parent().parent().attr("id")
+            $("#msgPanel_" + item.id).remove()
 
-                // Inicializa id_start_name com as iniciais do id (ex. table_tr1_0003 => table_tr1)
-                // Foi adicionado slice(0,-1) p/ remover o ultimo caractere, (ex. table_tr1 => table_tr ou table_tr => table_t),
-                // para que seja utilizada a 1a. linha como linha de referencia
-                id_start_name = name_id.substring(0, name_id.lastIndexOf("_")).slice(0, -1)
+            if (!item.close) {
+                if ($("#" + item.id).parent().is("td") && item.panelMsg == false) {
+                    // Inicializa name_id com  o nome da tr do id
+                    name_id = $("#" + item.id).parent().parent().attr("id")
 
-                // Inicializa id_end_name com a final do id (ex. table_tr1_0003 => 0003)
-                id_end_name = Get_Linha(name_id)
+                    // Inicializa id_start_name com as iniciais do id (ex. table_tr1_0003 => table_tr1)
+                    // Foi adicionado slice(0,-1) p/ remover o ultimo caractere, (ex. table_tr1 => table_tr ou table_tr => table_t),
+                    // para que seja utilizada a 1a. linha como linha de referencia
+                    id_start_name = name_id.substring(0, name_id.lastIndexOf("_")).slice(0, -1)
 
-                // Inicializa name_id_table com o id do table
-                name_id_table = $("#" + item.id).closest('table').attr("id")
+                    // Inicializa id_end_name com a final do id (ex. table_tr1_0003 => 0003)
+                    id_end_name = Get_Linha(name_id)
 
-                // Inicializa trs com as linhas semelhantes
-                trs = $("#" + name_id_table + " tr[id$='" + id_end_name + "']").filter("tr[id^='" + id_start_name + "']")
+                    // Inicializa name_id_table com o id do table
+                    name_id_table = $("#" + item.id).closest('table').attr("id")
 
-                // Define html_line c/ o template da tr
-                html_line = '<tr id ="msgPanel_' + item.id + '" display: none"><td colspan="' + total_colspan(trs, false) + '" style="padding: 3px;font-size:large"><label id="msgLabel_' + item.id + '">' + item.msg + '</label></td></tr>'
+                    // Inicializa trs com as linhas semelhantes
+                    trs = $("#" + name_id_table + " tr[id$='" + id_end_name + "']").filter("tr[id^='" + id_start_name + "']")
 
-                $(html_line).insertBefore(trs.first())
+                    // Define html_line c/ o template da tr
+                    html_line = '<tr id ="msgPanel_' + item.id + '" display: none"><td colspan="' + total_colspan(trs, false) + '" style="padding: 3px;font-size:large"><label id="msgLabel_' + item.id + '">' + item.msg + '</label></td></tr>'
 
-                // Teste
-                //if (isMobile())
-                //{
-                //    $(html_line).insertBefore(trs.first())
-                //}
-                //else
-                //{
-                //    $(html_line).insertAfter(trs.last())
-                //}
+                    $(html_line).insertBefore(trs.first())
+
+                    // Teste
+                    //if (isMobile())
+                    //{
+                    //    $(html_line).insertBefore(trs.first())
+                    //}
+                    //else
+                    //{
+                    //    $(html_line).insertAfter(trs.last())
+                    //}
+                }
+                else {
+                    // adiciona o elemento na <div> passada no parametro id
+                    html_line = '<div id="msgPanel_' + item.id + '" class="panel_message" style="display:none;font-size:large"><label id="msgLabel_' + item.id + '">' + item.msg + '</label></div>'
+                    var selector = "#" + ((item.panelMsg) ? "MessagesPanel" : $("#" + item.id).parent().attr("id"))
+
+                    $(html_line).prependTo(selector)
+
+                    // Teste
+                    //if (isMobile())
+                    //{
+                    //    $(html_line).prependTo(selector)
+                    //}
+                    //else
+                    //{
+                    //    $(html_line).appendTo(selector)
+                    //}
+                }
+
+                // obtem os elementos
+                var msgPanel = $("#msgPanel_" + item.id) // Painel de mensagem
+                var msgLabel = $("#msgLabel_" + item.id) // Label contendo a mensagem
+
+                // obtem o tempo de exibição (acrescentando 2s para cada linha adicional)
+                var msglines = (msgLabel.html() != undefined ? msgLabel.html().split("<br>").length : 1)
+                var timeToDisplay = 4000 + (msglines * 3000)
+                if (timeToDisplay > 60000) { timeToDisplay = 60000 } //Limita o tempo de exibicao p/ maximo de 1 minuto.
+
+                // Define a cor do tema do painel de mensagens
+                var msgColor = "msg_" + ((item.green) ? "green" : ((item.blue) ? "blue" : "red"))
+                Set_Color($(msgPanel), msgColor, true, true, false)
+
+                setTimeout(function () {
+                    msgPanel.slideDown("slow", function () {
+                        if (name_id_table.length) { round_table_corner(name_id_table) }
+                        if (item.tag_alert) { Set_Color($("#" + item.id), "alert", true, true, false) }
+                    })
+                }, 0);
+                setTimeout(function () {
+                    msgPanel.slideUp("slow", function () {
+                        msgPanel.remove(); if (name_id_table.length) { round_table_corner(name_id_table) }
+                    })
+                }, timeToDisplay);
             }
-            else
-            {
-                // adiciona o elemento na <div> passada no parametro id
-                html_line = '<div id="msgPanel_' + item.id + '" class="panel_message" style="display:none;font-size:large"><label id="msgLabel_' + item.id + '">' + item.msg + '</label></div>'
-                var selector = "#" + ((item.panelMsg) ? "MessagesPanel" : $("#" + item.id).parent().attr("id"))
-
-                $(html_line).prependTo(selector)
-
-                // Teste
-                //if (isMobile())
-                //{
-                //    $(html_line).prependTo(selector)
-                //}
-                //else
-                //{
-                //    $(html_line).appendTo(selector)
-                //}
-            }
-
-            // obtem os elementos
-            var msgPanel = $("#msgPanel_" + item.id) // Painel de mensagem
-            var msgLabel = $("#msgLabel_" + item.id) // Label contendo a mensagem
-
-            // obtem o tempo de exibição (acrescentando 2s para cada linha adicional)
-            var msglines = (msgLabel.html() != undefined ? msgLabel.html().split("<br>").length : 1)
-            var timeToDisplay = 4000 + (msglines * 3000)
-            if (timeToDisplay > 60000) { timeToDisplay = 60000 } //Limita o tempo de exibicao p/ maximo de 1 minuto.
-
-            // Define a cor do tema do painel de mensagens
-            var msgColor = "msg_" + ((item.green) ? "green" : ((item.blue) ? "blue" : "red"))
-            Set_Color($(msgPanel), msgColor, true, true, false)
-
-            setTimeout(function ()
-            {
-                msgPanel.slideDown("slow", function ()
-                {
-                    if (name_id_table.length) { round_table_corner(name_id_table) }
-                    if (item.tag_alert) { Set_Color($("#" + item.id), "alert", true, true, false) }
-                })
-            }, 0);
-            setTimeout(function ()
-            {
-                msgPanel.slideUp("slow", function ()
-                {
-                    msgPanel.remove(); if (name_id_table.length) { round_table_corner(name_id_table) }
-                })
-            }, timeToDisplay);
-        }
+        })();
     };
 };
 
 // Exibe o Painel de Confirmacao c/ buttons
-function Show_YesNoCancel(yesno)
-{
+function Show_YesNoCancel(yesno) {
     var yesno_template, item
 
-    for (var i = 0; i <= yesno.length - 1; i++)
-    {
+    for (var i = 0; i <= yesno.length - 1; i++) {
         item = yesno[i]
 
-        if (!yesno_showing)
-        {
+        if (!yesno_showing) {
             yesno_showing = true
 
             yesno_template = $(get_cmti_template("YesNoCancel")).clone()
@@ -756,30 +666,25 @@ function Show_YesNoCancel(yesno)
             if (item.show_no) { yesno_template.find("#NoButton").attr("id", item.btn_no).text(item.text_no) } else { yesno_template.find("#NoButton").remove() }
             if (item.show_cancel) { yesno_template.find("#CancelButton").attr("id", item.btn_cancel).text(item.text_cancel) } else { yesno_template.find("#CancelButton").remove() }
 
-            if (isMobile())
-            {
+            if (isMobile()) {
                 yesno_template.prependTo("#" + item.id)
             }
-            else
-            {
+            else {
                 yesno_template.appendTo("#" + item.id)
             }
 
             // Associa o evento click para os buttons do yesno_template
-            $('#YesNoCancel button').click(function (e)
-            {
+            $('#YesNoCancel button').click(function (e) {
                 e.preventDefault()
 
                 Collect_Params(this.id, 'button', true, true)
                 yesno_template.slideUp("slow", function () { yesno_template.remove(); yesno_showing = false })
             });
 
-            setTimeout(function ()
-            {
+            setTimeout(function () {
                 yesno_template.slideDown("slow", function () { $("#" + item.focus).focus() })
             }, 0);
-            setTimeout(function ()
-            {
+            setTimeout(function () {
                 yesno_template.slideUp("slow", function () { yesno_template.remove(); yesno_showing = false; Collect_Params(item.btn_cancel, "button", true, true) })
             }, item.duration);
         }
@@ -788,12 +693,10 @@ function Show_YesNoCancel(yesno)
 
 // Verifica quais elementos (inputs, selects e textarea) ficarao c/ determinadas cores
 // e chama Set_Color p/ efetivar as cores
-function Box_effects()
-{
+function Box_effects() {
     var plchold
 
-    $(box_selector).each(function ()
-    {
+    $(box_selector).each(function () {
         if (!$(document.activeElement).is(this) && !($(this).get(0).style.color == "red")) // $(document.activeElement) 'elemento que esta com o focus
         {
             // plchold = true se o elemento for select verifica se o valor == placeholder, caso seja input verifica se o valor esta vazio.
@@ -807,12 +710,10 @@ function Box_effects()
 // ------------------- Funções relacionadas aos buttons ------------------------
 
 // Define os buttons e associa click event
-function Layout_Buttons(cmd_btn)
-{
+function Layout_Buttons(cmd_btn) {
     var gBtn, cmbi, ipath, item, btn_template, img_file, sline
 
-    for (var i = 0; i <= cmd_btn.length - 1; i++)
-    {
+    for (var i = 0; i <= cmd_btn.length - 1; i++) {
         gBtn = cmd_btn[i]  // gBtn = grupo de parametros relacionados aos buttons
         cmbi = get_cmbi(gBtn.grupo)
         ipath = get_ipath(cmbi.bpath)
@@ -826,35 +727,29 @@ function Layout_Buttons(cmd_btn)
             if (item.title) { btn_template.attr("title", item.title) }
             if (cmbi.classe) { btn_template.attr("class", cmbi.classe) }
 
-            if (item.css_back_image)
-            {
+            if (item.css_back_image) {
                 img_file = (item.css_back_image.indexOf(":") >= 0 || item.css_back_image.indexOf("/") >= 0 ? item.css_back_image : ipath + item.css_back_image)
                 btn_template.css({ 'background-color': 'transparent', 'background-position': 'center', 'background-size': 'cover', 'background-image': ((item.videourl) ? "url('" : "url('../") + img_file + "')" })
                 btn_template.find('img').remove()
                 btn_template.find('span').remove()
             }
-            else
-            {
+            else {
                 if (item.img || item.span)  // Usado no template de Cores
                 {
-                    if (item.img)
-                    {
+                    if (item.img) {
                         sline = split_csv(item.img) // 0 - id, 1 - src
                         img_file = (sline[1].indexOf(":") >= 0 || sline[1].indexOf("/") >= 0 ? sline[1] : ipath + sline[1])
                         btn_template.find('img').attr('src', img_file).attr('id', item.img.id)
                     }
-                    else
-                    {
+                    else {
                         btn_template.find('img').remove()
                     }
 
-                    if (item.span)
-                    {
+                    if (item.span) {
                         sline = split_csv(item.span) // 0 - id, 1 - text
                         btn_template.find('span').text(sline[1]).attr('id', sline[0])
                     }
-                    else
-                    {
+                    else {
                         btn_template.css('background-color', 'transparent').find('span').remove()
                     }
                 }
@@ -865,12 +760,10 @@ function Layout_Buttons(cmd_btn)
 
             eval(cmbi.click_event) // Associa o evento click p/ efetuar a chamada Ajax CallBack p/ o Server
 
-            if (item.css_back_image)
-            {
+            if (item.css_back_image) {
                 if (item.videourl) // Habilita o evento click para o video
                 {
-                    $("#" + item.id).click(function (e)
-                    {
+                    $("#" + item.id).click(function (e) {
                         e.preventDefault();
                         Collect_Params(this.id, "cor_img", false, false)
                         window.open(item.videourl, "_blank")
@@ -878,8 +771,7 @@ function Layout_Buttons(cmd_btn)
                 }
                 else // Habilita o evento click para a Imagem
                 {
-                    $("#" + item.id).click(function (e)
-                    {
+                    $("#" + item.id).click(function (e) {
                         e.preventDefault();
                         Collect_Params(this.id, "cor_img", false, false)
                         img_file = $(this).css("background-image").replace("Thumbs", "Original")
@@ -894,12 +786,10 @@ function Layout_Buttons(cmd_btn)
 // -------------- Funções relacionadas aos Spans/Imgs (Sortable) -------------------
 
 // Define os Spans e Imgs p/ Sortable
-function Layout_Spans(cmd_span)
-{
+function Layout_Spans(cmd_span) {
     var template_base, span_template, img_file, sline, linha, img, span, gSpan, ipath
 
-    for (var i = 0; i <= cmd_span.length - 1; i++)
-    {
+    for (var i = 0; i <= cmd_span.length - 1; i++) {
         gSpan = cmd_span[i]  // gSpan = grupo de parametros relacionados aos spans
 
         ipath = get_ipath(gSpan.bpath)
@@ -915,13 +805,11 @@ function Layout_Spans(cmd_span)
             span_template = template_base.clone()
             span_template.attr('id', gSpan.start_name + "_Order_" + linha)
 
-            if (img.length)
-            {
+            if (img.length) {
                 img_file = (img.indexOf(":") >= 0 || img.indexOf("/") >= 0 ? img : ipath + img)
                 span_template.find('img').attr('src', img_file).attr('id', gSpan.start_name + "_Order_Img_" + linha)
             }
-            else
-            {
+            else {
                 span_template.find('img').remove()
             }
 
@@ -930,8 +818,7 @@ function Layout_Spans(cmd_span)
 
         // Ativa resizable
         $("#" + gSpan.appendTo).sortable({
-            update: function (event, ui)
-            {
+            update: function (event, ui) {
                 Collect_Params_Order(ui.item.attr("id"), "order", gSpan.appendTo)
                 pauta_span(gSpan)
 
@@ -945,8 +832,7 @@ function Layout_Spans(cmd_span)
 }
 
 // Define a cor da pauta do span
-function pauta_span(gSpan)
-{
+function pauta_span(gSpan) {
     Set_Color($('#' + gSpan.appendTo + ' span:nth-child(odd)'), "default", true, true, false)
     Set_Color($('#' + gSpan.appendTo + ' span:nth-child(even)'), gSpan.span_color, true, true, false)
 }
@@ -954,12 +840,10 @@ function pauta_span(gSpan)
 // ------------------- Funções relacionadas 'as imagens ------------------------
 
 // Define as imagens e associa click event
-function Layout_Imagens(cmd_img)
-{
+function Layout_Imagens(cmd_img) {
     var cmdi, gImg, bpath, item, img_size, img_file, html_line
 
-    for (var i = 0; i <= cmd_img.length - 1; i++)
-    {
+    for (var i = 0; i <= cmd_img.length - 1; i++) {
         gImg = cmd_img[i]  // gImg = grupo de parametros relacionados aos imgs
         cmdi = get_cmdi(gImg.tbl)
         bpath = (gImg.tbl == "Produtos" ? "prod" : gImg.tbl == "Cadastros" ? "cad" : cmdi.bpath)
@@ -973,8 +857,7 @@ function Layout_Imagens(cmd_img)
 
             $(html_line).appendTo("#" + gImg.appendTo)
 
-            if (gImg.draggable)
-            {
+            if (gImg.draggable) {
                 if ($("#ImagesButton").text() != "Imagens")  // Caso o usuario esteja no modo adicionar/remover imagens associa draggable ao elemento.
                 {
                     $("#" + item.id).draggable({ appendTo: "body", helper: "clone" });
@@ -982,21 +865,18 @@ function Layout_Imagens(cmd_img)
             }
 
             // Habilita o evento click para as Imagens
-            $("#" + item.id).click(function (e)
-            {
+            $("#" + item.id).click(function (e) {
                 e.preventDefault();
 
                 // Exibe o video ou a imagem
                 if (item.video) { window.open(item.videourl, "_blank") } else { Show_Foto($(this).attr("src").replace("Thumbs", "Original")) }
 
                 // Atualiza o src das imagens do table c/ o src da imagem selecionada pelo usuario.
-                if (gImg.update_img)
-                {
+                if (gImg.update_img) {
                     var element = $(this)
                     var tr_opcoes = element.closest("tr")
 
-                    if (tr_opcoes.is("tr"))
-                    {
+                    if (tr_opcoes.is("tr")) {
                         var linha = Get_Linha($(tr_opcoes).attr("id"))
                         var img_id = cmdi.start_name + "_Img_" + linha
 
@@ -1005,8 +885,7 @@ function Layout_Imagens(cmd_img)
                         Collect_Params(img_id, $(element).attr("id"), false, false)
                     }
                 }
-                else
-                {
+                else {
                     Collect_Params(this.id, "img_fullview", false, false)
                 }
             });
@@ -1015,8 +894,7 @@ function Layout_Imagens(cmd_img)
 }
 
 // Exibe a foto em "FullScreen"
-function Show_Foto(src)
-{
+function Show_Foto(src) {
     SetFullScreen(document.documentElement)
     $('.panel_window').css({ 'width': "100%", 'height': "100%" })
     $('#Full_Image').css({ 'width': "100%", 'height': "100%" }).attr("src", src)
@@ -1024,8 +902,7 @@ function Show_Foto(src)
 };
 
 // Associa o evento droppable p/ os elementos a serem usados no Drop (Drag & Drop) de Imagens
-function Set_Droppable_Img(drop_selector, accept, caller_event)
-{
+function Set_Droppable_Img(drop_selector, accept, caller_event) {
     // Associa o evento droppable para ImgRemoveDragPanel
     $(drop_selector).droppable(
         {
@@ -1033,8 +910,7 @@ function Set_Droppable_Img(drop_selector, accept, caller_event)
             hoverClass: "drag_panel_hover",
             accept: accept,
             tolerance: "pointer",
-            drop: function (event, ui)
-            {
+            drop: function (event, ui) {
                 $("#" + ui.draggable.attr("id")).attr("src", "")
                 Collect_Params(ui.draggable.attr("id"), caller_event, true, false)
             }
@@ -1044,30 +920,25 @@ function Set_Droppable_Img(drop_selector, accept, caller_event)
 // ------------------- Funções relacionadas aos tables -------------------------
 
 // Efetua chamadas p/ Layout ou Layout2 (posteriormente Layout2 sera removido)
-function Pre_Layout(cmd)
-{
+function Pre_Layout(cmd) {
     var item, cmdi
 
-    for (var i = 0; i <= cmd.length - 1; i++)
-    {
+    for (var i = 0; i <= cmd.length - 1; i++) {
         item = cmd[i]
         cmdi = get_cmdi(item.tbl)
 
-        if (item.tbl != "PrecoBriefs")
-        {
+        if (item.tbl != "PrecoBriefs") {
             if (item.pages.length) { Layout_Pagina(cmdi, item) }
             Layout_Tables(cmdi, item)
         }
-        else
-        {
+        else {
             Layout_Tables_2(cmdi, item)
         }
     }
 }
 
 // Layout de Pagina
-function Layout_Pagina(cmdi, cmd)
-{
+function Layout_Pagina(cmdi, cmd) {
     var trs_header, trs_itens, trs_lines, sline, pagina, descricao, qtd_rows, focus
 
     $("#" + cmdi.table_name + " tr").remove()
@@ -1079,8 +950,7 @@ function Layout_Pagina(cmdi, cmd)
 
     trs_header.appendTo("#" + cmdi.table_name)
 
-    for (var i = 0; i <= cmd.pages.length - 1; i++)
-    {
+    for (var i = 0; i <= cmd.pages.length - 1; i++) {
         sline = split_csv(cmd.pages[i])
         pagina = parseInt(sline[0]) // Integer
         descricao = sline[1] // String
@@ -1112,8 +982,7 @@ function Layout_Pagina(cmdi, cmd)
 }
 
 // Layout das Tabelas
-function Layout_Tables(cmdi, cmd)
-{
+function Layout_Tables(cmdi, cmd) {
     var trs_header, trs_lines, trs_lines_lenght, trs_filter, last_tr_header, last_line_id, trs_lines_default
     var id, linha, sline, sColumns, index, value, has_header, ph, sel, seli, sline_sel, sline_opt, index_hsel, ipath, cmip, insAfter
 
@@ -1124,20 +993,17 @@ function Layout_Tables(cmdi, cmd)
 
     has_header = $("#" + cmdi.table_name + " th[id^='" + cmdi.start_name + "_']").length > 0
 
-    if (cmdi.header.show && !has_header)
-    {
+    if (cmdi.header.show && !has_header) {
         // Inicializa trs_header com as 'tr' do header do template e em seguida ajusta algumas informacoes (attr, hide, adiciona td de pagina se for o caso e etc.)
         trs_header = $(cmdi.header.template).clone()
         trs_header = Layout_Ajust_Linhas(cmdi, cmd, trs_header, true)
 
         // Altera o id das 'tr' e dos 'th' e define a propriedade css.
-        for (var i = 0; i <= trs_header.length - 1; i++)
-        {
+        for (var i = 0; i <= trs_header.length - 1; i++) {
             tr = trs_header[i]
             $(tr).attr("id", $(tr).attr("id") + "eader")
 
-            $(tr).find("th").each(function (index, th)
-            {
+            $(tr).find("th").each(function (index, th) {
                 $(th).attr("id", $(th).attr("id") + "eader")
                 $(th).children().attr("id", $(th).children().attr("id") + "eader")
             });
@@ -1166,94 +1032,74 @@ function Layout_Tables(cmdi, cmd)
     //Inicializa bpath c/ o path dos botoes c/ imagens
     ipath = get_ipath(cmdi.bpath)
 
-    for (var i = 0; i <= cmd.htbl.length - 1; i++)
-    {
+    for (var i = 0; i <= cmd.htbl.length - 1; i++) {
         sline = split_csv(cmd.htbl[i])
         linha = sline[0] // a primeira column e' usada para indicar a linha
 
         trs_lines = trs_base.clone()
 
-        trs_lines.each(function (index, tr)
-        {
+        trs_lines.each(function (index, tr) {
             $(tr).attr("id", $(tr).attr("id") + "_" + linha)
 
-            $(tr).find("td").each(function (index, td)
-            {
+            $(tr).find("td").each(function (index, td) {
                 id = $(td).attr("id").slice(0, -3)
                 tag = $(td).find("#" + id)
 
-                if (tag.length > 0)
-                {
+                if (tag.length > 0) {
                     index = sColumns.indexOf(id) + 1 //Obtem o indice da coluna relacionada e acrescenta + 1, pois a 1a. ocorrencia e' da linha
-                    if (index > 0)
-                    {
+                    if (index > 0) {
                         value = sline[index]
 
-                        if (tag.is("input[type='text']") || tag.is("textarea") || tag.is("select"))
-                        {
-                            if (tag.is("select"))
-                            {
+                        if (tag.is("input[type='text']") || tag.is("textarea") || tag.is("select")) {
+                            if (tag.is("select")) {
                                 seli = $.grep(cmdi.sels, function (e) { return e.id == id })[0]
 
-                                if (seli.options.length > 0)
-                                {
+                                if (seli.options.length > 0) {
                                     var asel = $.grep(cmd.hsel, function (e) { return e.startsWith(id + "_" + linha) })[0]
 
-                                    if (asel != undefined)
-                                    {
+                                    if (asel != undefined) {
                                         sline_sel = split_csv(asel)
 
-                                        if (sline_sel.length > 1)
-                                        {
+                                        if (sline_sel.length > 1) {
                                             sline_opt = split_csv(sline_sel[1])
                                             sline_opt.unshift("phd")
 
-                                            for (var j = 0; j <= sline_opt.length - 1; j++)
-                                            {
+                                            for (var j = 0; j <= sline_opt.length - 1; j++) {
                                                 sel = $.grep(seli.options, function (e) { return e.value == sline_opt[j] })[0]
                                                 if (sel != undefined) { $(tag).append($('<option>', { value: sel.value, text: sel.text })); }
                                             }
                                         }
-                                        else
-                                        {
+                                        else {
                                             sel = $.grep(seli.options, function (e) { return e.value == value })[0]
                                             if (sel != undefined) { $(tag).append($('<option>', { value: sel.value, text: sel.text })); }
                                         }
                                     }
-                                    else
-                                    {
-                                        for (var j = 0; j <= seli.options.length - 1; j++)
-                                        {
+                                    else {
+                                        for (var j = 0; j <= seli.options.length - 1; j++) {
                                             $(tag).append($('<option>', { value: seli.options[j].value, text: seli.options[j].text }));
                                         }
                                     }
                                     $(tag).val(value)
                                 }
                             }
-                            else
-                            {
+                            else {
                                 iph = $.grep(cmdi.iph, function (e) { return e.id == id })[0]
                                 if (iph.length) { $(tag).attr('placeholder', iph.iph) }
 
                                 $(tag).val(value)
                             }
                         }
-                        else if (tag.is("label") || tag.is("button") || tag.is("span"))
-                        {
+                        else if (tag.is("label") || tag.is("button") || tag.is("span")) {
                             $(tag).text(value)
                         }
-                        else if ($(tag).is(':checkbox'))
-                        {
+                        else if ($(tag).is(':checkbox')) {
                             $(tag).prop('checked', (value == "True" || value == "true")).bootstrapSwitch()
                         }
-                        else if (tag.is("img"))
-                        {
-                            if (value.length)
-                            {
+                        else if (tag.is("img")) {
+                            if (value.length) {
                                 $(tag).attr("src", value.indexOf(":") >= 0 || value.indexOf("/") >= 0 ? value : ipath + value)
                             }
-                            else
-                            {
+                            else {
                                 $(tag).attr("src", htbl_buttons_default[cmdi.itens.red_button])
                             }
                         }
@@ -1277,12 +1123,10 @@ function Layout_Tables(cmdi, cmd)
             trs_lines.insertAfter("#" + cmd.insertAfter_page)
             cmd.insertAfter_page = null
         }
-        else if (last_line_id)
-        {
+        else if (last_line_id) {
             trs_lines.insertAfter(last_line_id)
         }
-        else
-        {
+        else {
             trs_lines.appendTo("#" + cmdi.table_name)
         }
 
@@ -1300,8 +1144,7 @@ function Layout_Tables(cmdi, cmd)
     pauta_table(cmdi.table_name)
 
     // Se houver paginas, ajusta o colspan da pagina.
-    if (cmdi.tbl == cmdi.tbl_referencia && $("#" + cmdi.table_name + " th[id^='Pagina_Info']").length > 0)
-    {
+    if (cmdi.tbl == cmdi.tbl_referencia && $("#" + cmdi.table_name + " th[id^='Pagina_Info']").length > 0) {
         // Obtem as linhas relacionadas, p/ calcular o total_colspan.
         // -1 e' usado p/ subtrair o colspan correspondente ao drilldown.
         var trs = $("#" + cmdi.table_name + " tr[id$='_header']").not("tr[id*='_trp_']")
@@ -1316,8 +1159,7 @@ function Layout_Tables(cmdi, cmd)
 }
 
 // Layout das Tabelas 2 (Works like Pivot table) - remover posteriormente
-function Layout_Tables_2(cmdi, cmd)
-{
+function Layout_Tables_2(cmdi, cmd) {
     var trs_header, trs_lines, trs_filter, count
     var id, linha, sline, sColumns, index, value, has_header
 
@@ -1326,48 +1168,39 @@ function Layout_Tables_2(cmdi, cmd)
     // Remove as 'tr' se cmd.header.clear = true
     if (cmd.pages.length == 0 && cmd.clear) { $("#" + cmdi.table_name + " tr").remove() }
 
-    if (cmdi.header.show)
-    {
+    if (cmdi.header.show) {
         // Inicializa trs_header com as 'tr' do header do template e em seguida ajusta algumas informacoes (attr, hide, adiciona td de pagina se for o caso e etc.)
         trs_header = $(cmdi.header.template)
         trs_header = Layout_Ajust_Linhas(cmdi, cmd, trs_header, true)
 
-        trs_header.each(function (index, tr)
-        {
+        trs_header.each(function (index, tr) {
             $(tr).attr("id", $(tr).attr("id") + "eader")
             th_td = $(tr).find("th").clone()
             $(tr).find("th").remove()
             id = $(th_td).attr("id").slice(0, -3)
 
-            $.each(cmd.htbl, function (index, line)
-            {
+            $.each(cmd.htbl, function (index, line) {
                 sline = split_csv(line)
                 linha = sline[0] // a primeira column e' usada para indicar a linha
 
                 th = th_td.clone().attr("id", id + "_th_" + linha)
                 tag = $(th).children()
 
-                if (tag.length > 0)
-                {
+                if (tag.length > 0) {
                     index = sColumns.indexOf(id) + 1 //Obtem o indice da coluna relacionada e acrescenta + 1, pois a 1a. ocorrencia e' da linha
-                    if (index > 0)
-                    {
+                    if (index > 0) {
                         value = sline[index]
 
-                        if (tag.is("input[type='text']") || tag.is("textarea") || tag.is("select"))
-                        {
+                        if (tag.is("input[type='text']") || tag.is("textarea") || tag.is("select")) {
                             $(tag).val(value)
                         }
-                        else if (tag.is("label") || tag.is("button") || tag.is("span"))
-                        {
+                        else if (tag.is("label") || tag.is("button") || tag.is("span")) {
                             $(tag).text(value)
                         }
-                        else if ($(tag).is(':checkbox'))
-                        {
+                        else if ($(tag).is(':checkbox')) {
                             $(tag).prop('checked', (value == "True" || value == "true")).bootstrapSwitch()
                         }
-                        else if (tag.is("img"))
-                        {
+                        else if (tag.is("img")) {
                             $(tag).attr("src", (value.length) ? value : htbl_buttons_default[cmdi.itens.red_button])
                         }
                     }
@@ -1386,37 +1219,30 @@ function Layout_Tables_2(cmdi, cmd)
     trs_lines = $(cmdi.itens.template)
     trs_lines = Layout_Ajust_Linhas(cmdi, cmd, trs_lines, false)
 
-    trs_lines.each(function (index, tr)
-    {
+    trs_lines.each(function (index, tr) {
         th_td = $(tr).find("td").clone()
         $(tr).find("td").remove()
         id = $(th_td).attr("id").slice(0, -3)
 
-        $.each(cmd.htbl, function (index, line)
-        {
+        $.each(cmd.htbl, function (index, line) {
             sline = split_csv(line)
             linha = sline[0] // a primeira column e' usada para indicar a linha
 
             td = th_td.clone().attr("id", id + "_td_" + linha)
             tag = $(td).children()
 
-            if (tag.length > 0)
-            {
+            if (tag.length > 0) {
                 index = sColumns.indexOf(id) + 1 //Obtem o indice da coluna relacionada e acrescenta + 1, pois a 1a. ocorrencia e' da linha
-                if (index > 0)
-                {
+                if (index > 0) {
                     value = sline[index]
 
-                    if (tag.is("input[type='text']") || tag.is("textarea") || tag.is("select"))
-                    {
+                    if (tag.is("input[type='text']") || tag.is("textarea") || tag.is("select")) {
                         $(tag).val(value)
                     }
-                    else if (tag.is("label") || tag.is("button") || tag.is("span"))
-                    {
+                    else if (tag.is("label") || tag.is("button") || tag.is("span")) {
                         $(tag).text(value)
                     }
-                    else if (tag.is("img"))
-                    {
+                    else if (tag.is("img")) {
                         $(tag).attr("src", (value.length) ? value : htbl_buttons_default[cmdi.itens.red_button])
                     }
                 }
@@ -1441,14 +1267,12 @@ function Layout_Tables_2(cmdi, cmd)
 }
 
 // Ajusta algumas informacoes do layout (attr, hide, adiciona td de pagina se for o caso e etc.)
-function Layout_Ajust_Linhas(cmdi, cmd, trs, header)
-{
+function Layout_Ajust_Linhas(cmdi, cmd, trs, header) {
     // Se houver dados em layout_check, efetua diversos ajustes em trs. Ex: MPDs, MPTs, MFPs e etc...
     if (cmd.layout_check) { eval("trs = " + cmd.layout_check) }
 
     // Se houver pagina, insere o td c/ o Label Null que fica alinhado c/ a Selecao da Pagina.
-    if (cmd.pages.length)
-    {
+    if (cmd.pages.length) {
         clone_th = (header) ? $(cmpi.template_header).filter("#Pagina_Null_th").clone() : $(cmpi.template_itens).filter("#Pagina_Null_td").clone()
         clone_th.attr("rowspan", trs.length)
         clone_th.insertBefore(trs.first().find(((header) ? "th" : "td") + ":first"))
@@ -1463,16 +1287,13 @@ function Layout_Ajust_Linhas(cmdi, cmd, trs, header)
 // Ajusta o width de algumas colunas do table, obtendo a row c/ maior quantidade de caracteres ou usando o height como referencia p/ width e etc.
 // O resize nao e' processado no momento das tabelas, devido a informacoes que podem alterar o conteudo das celulas como por exemplo: Combos, Values, Text e etc.
 // Como MPDs, MPDIs e MSTs usam celulas dinamicas, nao sao processados neste ponto.
-function Htbl_Resize_Columns_Check(cmd)
-{
+function Htbl_Resize_Columns_Check(cmd) {
     var item
     var tbl_exceptions = ["MPDs", "MPDIs", "MFPIs", "MSTs"]
 
-    for (var i = 0; i <= cmd.length - 1; i++)
-    {
+    for (var i = 0; i <= cmd.length - 1; i++) {
         item = cmd[i]
-        if (tbl_exceptions.indexOf(item.tbl) < 0)
-        {
+        if (tbl_exceptions.indexOf(item.tbl) < 0) {
             Resize_Columns(get_cmdi(item.tbl), 5, 0)
         }
     }
@@ -1481,10 +1302,8 @@ function Htbl_Resize_Columns_Check(cmd)
 // --------- Funcoes e Eventos associadas aos buttons dos tables ------------
 
 // Habilita o evento click para exibir as imagens ou video em fullscreen.
-function Set_Click_Image_Video(id, videourl)
-{
-    $("#" + id).click(function (e)
-    {
+function Set_Click_Image_Video(id, videourl) {
+    $("#" + id).click(function (e) {
         e.preventDefault();
 
         // Exibe o video ou a imagem
@@ -1493,11 +1312,9 @@ function Set_Click_Image_Video(id, videourl)
 }
 
 // Associa o evento click ao botao de selecao do CEP.
-function Set_Click_CEP_Selecao(id)
-{
+function Set_Click_CEP_Selecao(id) {
     // Associa o evento click para p/ inicializar as informações do endereço e etc.
-    $('#' + id).click(function (e)
-    {
+    $('#' + id).click(function (e) {
         e.preventDefault();
 
         // Em caller_event envia o id da opcao p/ obter a linha do endereco
@@ -1511,16 +1328,13 @@ function Set_Click_CEP_Selecao(id)
 }
 
 // Chama a function Set_Click_Drill_Down
-function Click_Drill_Down(id, parent_1, parent_2, selector)
-{
+function Click_Drill_Down(id, parent_1, parent_2, selector) {
     $("#" + id).off('click').on('click', Set_Click_Drill_Down(id, parent_1, parent_2, selector))
 }
 
 // Associa o evento click para as setas usadas como selecao p/ drill-down
-function Set_Click_Drill_Down(id, parent_1, parent_2, selector)
-{
-    $('#' + id).click(function (e)
-    {
+function Set_Click_Drill_Down(id, parent_1, parent_2, selector) {
+    $('#' + id).click(function (e) {
         e.preventDefault();
 
         var linha, direction
@@ -1533,14 +1347,12 @@ function Set_Click_Drill_Down(id, parent_1, parent_2, selector)
 
         $(this).attr("src", "images/navigate-" + direction + "-icon.png")
 
-        if (parent_1 != null && parent_2 != null)
-        {
+        if (parent_1 != null && parent_2 != null) {
             if (dd_status == "open_drilldown") { $("#" + parent_1).nextUntil("#" + parent_2).filter("tr[id*='_Opcoes_']").remove(); }
             if (dd_status == "close_drilldown") { $("#" + parent_1).nextUntil("#" + parent_2).filter("tr").not("tr[id*='_trp_']").remove(); }
             round_table_corner($(this).closest('table').attr('id'))
         }
-        else
-        {
+        else {
             // selector e' usado p/ casos especificos como o table de NCMs
             // que tem tables inside td, sendo necessario portanto remover as tr c/ estes tables.
             if (dd_status == "open_drilldown") { $(selector).remove(); $("tr[id*='_Opcoes_']").remove() }
@@ -1552,8 +1364,7 @@ function Set_Click_Drill_Down(id, parent_1, parent_2, selector)
 
 // Associa o evento click para "ativar" o painel de opcoes das linhas dos tables
 // Foi usado o evento click ao invez do evento toggle pois os buttons Adicionar/Remover e etc tambem colapsam o mesmo painel
-function Set_Click_Opcoes_Linhas(tbl, linha, tagsToHide)
-{
+function Set_Click_Opcoes_Linhas(tbl, linha, tagsToHide) {
     var cmdi, cmdo, id_selecao, opc_selector, trs_options, alread_open, linha2
     var tbl_exceptions = ['TNCMPIs', 'TNCMAIs', 'TNCMVIs', 'TNOPFIs', 'TNOPPIs']
 
@@ -1562,8 +1373,7 @@ function Set_Click_Opcoes_Linhas(tbl, linha, tagsToHide)
     id_selecao = cmdi.start_name + "_" + (cmdi.itens.image ? "Img" : "Selecao") + "_" + linha
     opc_selector = "#" + cmdo.start_name + "_Opcoes_" + cmdi.start_name + "_tr_" + linha // Compoe o nome c/ cmdi.start_name, p/ diferenciar as 'tr' quando ha 'tr' de diferentes tbls na mesma table (Ex: Fornec/PFC ou Empresas/PPC e etc.)
 
-    $("#" + id_selecao).click(function (e)
-    {
+    $("#" + id_selecao).click(function (e) {
         e.preventDefault();
 
         alread_open = false
@@ -1572,8 +1382,7 @@ function Set_Click_Opcoes_Linhas(tbl, linha, tagsToHide)
         trs_options = $("#" + cmdi.table_name + " tr[id^='" + cmdo.start_name + "_Opcoes_" + cmdi.start_name + "']")
 
         // Caso ja tenha "options ativados", fecha os options que estao "ativados".
-        for (var i = 0; i <= trs_options.length - 1; i++)
-        {
+        for (var i = 0; i <= trs_options.length - 1; i++) {
             linha2 = Get_Linha($(trs_options[i]).attr("id"))
             Remove_trOptions(tbl, linha2)
 
@@ -1589,18 +1398,14 @@ function Set_Click_Opcoes_Linhas(tbl, linha, tagsToHide)
 }
 
 // Fecha todos os drilldown menu c/ excessao p/ o elemento onde focus_element e' diferente de MoreInfoButton
-function Close_All_DrillDown(tbl, moreinfo, start_name_item, start_name_header, tag_tr1, tag_tr2, next_line2, rowspan)
-{
-    if (moreinfo)
-    {
+function Close_All_DrillDown(tbl, moreinfo, start_name_item, start_name_header, tag_tr1, tag_tr2, next_line2, rowspan) {
+    if (moreinfo) {
         $("#" + tag_tr1).nextUntil("#end_of_table").filter("tr[id^='" + start_name_item + "_']").not("tr[id$='header']").not("tr[id*='_trp_']").remove()
     }
-    else
-    {
+    else {
         $("#" + tag_tr1).nextUntil("#" + tag_tr2).filter("tr[id^='" + start_name_item + "_']").not("tr[id$='header']").not("tr[id*='_trp_']").remove()
 
-        if (next_line2 != null)
-        {
+        if (next_line2 != null) {
             var tag_tr2 = start_name_header + "_tr" + rowspan + "_" + next_line2
             $("#" + tag_tr2).nextUntil("#end_of_table").filter("tr[id^='" + start_name_item + "_']").not("tr[id*='_trp_']").remove()
         }
@@ -1615,22 +1420,19 @@ function Close_All_DrillDown(tbl, moreinfo, start_name_item, start_name_header, 
 // -------------- Funções relacionadas a alguns Templates -------------------
 
 // Insere o template da linha vertical (vt - vertical line)
-function insert_vt_template(insertAfter)
-{
+function insert_vt_template(insertAfter) {
     $(get_cmti_template("vertical_line")).clone().insertAfter('#' + insertAfter)
 }
 
 // Insere o template de xlEstatisca (Informacoes de Importacao/Exportacao p/ Excel)
-function insert_xlEstatistica_template()
-{
+function insert_xlEstatistica_template() {
     var cmbi = get_cmbi("xlEstatistica")
     $(get_cmti_template("xlEstatistica")).clone().insertBefore('#MessagesPanel')
     eval(cmbi.click_event) // Associa o evento click p/ efetuar a chamada Ajax CallBack p/ o Server
 }
 
 // Insere o template de DataHora em MSTs
-function insert_datahora_template(data_hora, appendTo)
-{
+function insert_datahora_template(data_hora, appendTo) {
     var datahora_template = get_cmti_template("DataHora")
     datahora_template = datahora_template.replace("><", ">" + data_hora + "<")
 
@@ -1640,20 +1442,16 @@ function insert_datahora_template(data_hora, appendTo)
 // ------------------------ Funções genericas -------------------------------
 
 // Função para verificar se é sistema operacional para dispositivo "movel"
-function isMobile()
-{
+function isMobile() {
     // Teste quando puder testar no smartphone remover esta function e chamar diretamente a funcao abaixo
     return $.browser.mobile;
 }
 
 // Teste - Remover posteriormente quando puder testar no smartphone.
-function rem_isMobile()
-{
+function rem_isMobile() {
     var agents = ['android', 'webos', 'iphone', 'ipad', 'blackberry', 'windows phone'];
-    for (var i = 0; i <= agents.length - 1; i++)
-    {
-        if (navigator.userAgent.toLowerCase().search(agents[i]) > 0)
-        {
+    for (var i = 0; i <= agents.length - 1; i++) {
+        if (navigator.userAgent.toLowerCase().search(agents[i]) > 0) {
             return true;
         }
     }
@@ -1661,29 +1459,24 @@ function rem_isMobile()
 }
 
 // Função para verificar se a string é composta por numeros
-function isNumber(n)
-{
+function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 // preenche o numero com zeros à esquerda
-function zfill(num, len)
-{
+function zfill(num, len) {
     return (Array(len).join("0") + num).slice(-len);
 }
 
 // Verifica se uma das extensoes passadas como array e' valida para o file_name
-function checkfile_extension(file_name, validExts)
-{
+function checkfile_extension(file_name, validExts) {
     var extension = file_name.toLowerCase().substring(file_name.lastIndexOf('.'));
     return (validExts.indexOf(extension) >= 0)
 }
 
 // Define a altura do MainPanel, e associa o evento resize p/ manter sempre a mesma altura com o HeaderPanel fixado na parte superior na 'window'.
-function Fix_HeaderPanel(fix)
-{
-    if (fix)
-    {
+function Fix_HeaderPanel(fix) {
+    if (fix) {
         if ($("#MainPanel").length && $("#HeaderPanel").length) // Testa se MainPanel e HeaderPanel existem (pois nem todas as paginas tem os dois paineis, Login e etc.)
         {
             MainPanel_Resize()
@@ -1691,8 +1484,7 @@ function Fix_HeaderPanel(fix)
         }
         $("#FixMenuContainerButton").attr("src", "images/navigate-down-icon.png")
     }
-    else
-    {
+    else {
         $(window).off("resize", MainPanel_Resize)
         $("#MainPanel").height('auto')
         $("#FixMenuContainerButton").attr("src", "images/navigate-up-icon.png")
@@ -1700,8 +1492,7 @@ function Fix_HeaderPanel(fix)
 }
 
 // Redefine MainPanel.height on resize
-function MainPanel_Resize()
-{
+function MainPanel_Resize() {
     // Adicionado -10 p/ calibrar a altura do HeaderPanel.
     $("#MainPanel").height($(window).height() - $("#HeaderPanel").height() - 10)
 
@@ -1709,41 +1500,32 @@ function MainPanel_Resize()
 }
 
 // Associa o evento toggle para expandir ou colapsar
-function Set_Toggle(tagclick, taganimate, vel)
-{
-    $('#' + tagclick).click(function (e)
-    {
+function Set_Toggle(tagclick, taganimate, vel) {
+    $('#' + tagclick).click(function (e) {
         e.preventDefault()
 
         isClicked = $(this).data('clicked');
         if (isClicked) { isClicked = false } else { isClicked = true }
         $(this).data('clicked', isClicked)
 
-        if (isClicked)
-        { $("#" + taganimate).slideDown(vel) }
-        else
-        { $("#" + taganimate).slideUp(vel) }
+        if (isClicked) { $("#" + taganimate).slideDown(vel) }
+        else { $("#" + taganimate).slideUp(vel) }
     });
 }
 
 // Associa o evento toggle_Panels p/ Collapsar ou Expandir paineis.
-function toggle_Panels(button, panel1, panel2, command1, command2, vel)
-{
-    if ($("#" + panel1).is(":visible"))
-    {
+function toggle_Panels(button, panel1, panel2, command1, command2, vel) {
+    if ($("#" + panel1).is(":visible")) {
         $("#" + panel1).hide()
-        $("#" + panel2).slideDown(vel, function ()
-        {
+        $("#" + panel2).slideDown(vel, function () {
             $("#" + panel2).show()
             eval(command1)
             Set_Next_Focus('MessagesPanel');
         })
     }
-    else
-    {
+    else {
         $("#" + panel2).hide()
-        $("#" + panel1).slideUp(vel, function ()
-        {
+        $("#" + panel1).slideUp(vel, function () {
             $("#" + panel1).show()
             eval(command2)
             Set_Next_Focus('MessagesPanel');
@@ -1752,12 +1534,10 @@ function toggle_Panels(button, panel1, panel2, command1, command2, vel)
 }
 
 // Associa o evento jqPagination na div c/ a class .pagination
-function Set_jqPagination(on, blp_start_name, current_page, max_page, max_rows)
-{
+function Set_jqPagination(on, blp_start_name, current_page, max_page, max_rows) {
     var pagination = $('.pagination')
 
-    if (!block_pages_start_name)
-    {
+    if (!block_pages_start_name) {
         block_pages_start_name = (blp_start_name) ? blp_start_name : "init"
 
         // Inicializa informacoes no controle jqPagination
@@ -1769,43 +1549,35 @@ function Set_jqPagination(on, blp_start_name, current_page, max_page, max_rows)
                 paged: function (page) { Collect_Params(block_pages_start_name + "_Block_Pages_" + page, "sort", true, true) }
             });
     }
-    else
-    {
-        if (on)
-        {
+    else {
+        if (on) {
             var value = (current_page == 1 && max_page == 1 ? '' : 'Bloco ' + current_page + '/' + max_page + ' de ') + max_rows + (max_rows == 1 ? ' linha' : ' linhas')
 
             block_pages_start_name = blp_start_name
             pagination.css('display', 'inline-block').jqPagination('option', { max_page: max_page, current_page: current_page, trigger: false })
             pagination.find('input').css('display', 'inline-block').width(textWidth('medium', value.length, 5, 30)).val(value)
         }
-        else
-        {
+        else {
             pagination.css('display', 'none')
         }
     }
 }
 
 // Define propriedade de background-color, color para os elementos.
-function Set_Color(element, option, setcolor, setbackcolor, pauta)
-{
+function Set_Color(element, option, setcolor, setbackcolor, pauta) {
     // descricoes usadas em tema.colors.descricao
     // cell, cell_header, cell_selected, cell_header_selected, default, placeholder, alert
     // msg_red, msg_green, msg_blue, destak_blue, pauta_page, pauta1, pauta2, pauta3, pauta4 e etc...
 
-    if (tema.colors != undefined)
-    {
+    if (tema.colors != undefined) {
         if (!pauta) //Nao e' pauta
         {
             var cor = $.grep(tema.colors, function (e) { return e.descricao == option });
 
-            if (cor.length)
-            {
+            if (cor.length) {
                 if (setcolor) { element.css("color", cor[0].color) }
-                if (setbackcolor)
-                {
-                    if (element.parent().is("td"))
-                    {
+                if (setbackcolor) {
+                    if (element.parent().is("td")) {
                         // Verifica se a linha esta c/ os atributos de pauta, se sim usa backgroud-color do data-attribute ao inves de backcolor.
                         var td = element.parent()
                         var condition = (td.attr("data-backcolor") == undefined || option == "phd" || option == "default_focus")
@@ -1813,8 +1585,7 @@ function Set_Color(element, option, setcolor, setbackcolor, pauta)
                         element.css("background-color", (condition) ? cor[0].backcolor : td.attr("data-backcolor"))
                         td.css("background-color", (condition) ? cor[0].backcolor : td.attr("data-backcolor"))
                     }
-                    else
-                    {
+                    else {
                         element.css("background-color", cor[0].backcolor)
                     }
                 }
@@ -1825,8 +1596,7 @@ function Set_Color(element, option, setcolor, setbackcolor, pauta)
             var pauta_index = element.first().attr("data-pauta")
             var cor = $.grep(tema.colors, function (e) { return e.descricao == ((option == "pauta") ? "pauta" + pauta_index : option) });
 
-            if (cor.length)
-            {
+            if (cor.length) {
                 // not("div") foi adicionado p/ nao pegar as divs relacionados ao "jq resizable" e 
                 // evitar collateral effects (bordas laterais das celulas ficam "invisiveis"),
                 var tags = element.find("td").children().not("div")
@@ -1840,24 +1610,20 @@ function Set_Color(element, option, setcolor, setbackcolor, pauta)
 }
 
 // Verifica background-image de SaveButton, if "Grey" change to "Green"
-function SaveButton_Image_Check()
-{
+function SaveButton_Image_Check() {
     if (/Grey/.test($("#SaveButton").css("background-image"))) { $("#SaveButton").css("background-image", "url('../images/Green-Sync-icon.png')") }
 }
 
 // Retorna a linha ou codigo que no final do valor passado como parametro
-function Get_Linha(value)
-{
+function Get_Linha(value) {
     return value.substring(value.lastIndexOf("_") + 1)
 }
 
 // Retorna o array da linha que esta no formato CSV
-function split_csv(line)
-{
+function split_csv(line) {
     var sline = []
 
-    if (line)
-    {
+    if (line) {
         var previous_char = ""
         var qmark = false
         var double_qmark = false
@@ -1871,44 +1637,35 @@ function split_csv(line)
         // double_qmark e' usado como flag de controle para saber quando e' duplo quotation mark. Obs: Faz parte do protocolo CSV
         // Ex: ABC;"DEF "fone e email" GHI";JKL   ou    ABC;"Uma frase c/ ; e "";DEF
 
-        for (var i = 0; i <= line.length - 1; i++)
-        {
+        for (var i = 0; i <= line.length - 1; i++) {
             c = line[i]
 
-            if (c == '"')
-            {
-                if (double_qmark)
-                {
+            if (c == '"') {
+                if (double_qmark) {
                     column += c
                     double_qmark = false
                     previous_double_qmark = true
                 }
-                else
-                {
-                    if ((i == 0 || previous_char == delimiter) && !qmark)
-                    {
+                else {
+                    if ((i == 0 || previous_char == delimiter) && !qmark) {
                         qmark = true
                         double_qmark = false
                     }
-                    else if (((i + 1) <= (line.length - 1)) && line[i + 1] == delimiter)
-                    {
+                    else if (((i + 1) <= (line.length - 1)) && line[i + 1] == delimiter) {
                         qmark = false
                         double_qmark = false
                     }
-                    else
-                    {
+                    else {
                         double_qmark = !(previous_char == '"' && !previous_double_qmark)
                     }
                     previous_double_qmark = false
                 }
             }
-            else if (c == delimiter && !qmark)
-            {
+            else if (c == delimiter && !qmark) {
                 sline.push(column)
                 column = ""
             }
-            else
-            {
+            else {
                 column += c
             }
             previous_char = c
@@ -1923,25 +1680,19 @@ function split_csv(line)
 // nao adiciona dois duble quotes quando ha' double quote no final da string, e nem mesmo usando \".
 // " p/ "" e' usado no padrao csv e ' p/ || e' para manter a string compativel c/ o json.
 // e se houver delimitador (";") no texto, retorna o value entre double quotes.
-function convert_to_csv(value)
-{
+function convert_to_csv(value) {
     var new_value = ""
     var delimiter = false
 
-    if (value != null)
-    {
-        for (var i = 0; i <= value.length - 1; i++)
-        {
-            if (value[i] == '"')
-            {
+    if (value != null) {
+        for (var i = 0; i <= value.length - 1; i++) {
+            if (value[i] == '"') {
                 new_value += '""'
             }
-            else if (value[i] == "'")
-            {
+            else if (value[i] == "'") {
                 new_value += '||'
             }
-            else
-            {
+            else {
                 new_value += value[i]
             }
             if (value[i] == ";") { delimiter = true }
@@ -1952,54 +1703,42 @@ function convert_to_csv(value)
 }
 
 // Retorna o Token
-function Get_Token()
-{
+function Get_Token() {
     return (localStorage.getItem("token")) ? convert_to_csv(localStorage.getItem("token")) : "null"
 }
 
 // Retorna o nome da pagina
-function Get_PageName()
-{
+function Get_PageName() {
     return location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
 }
 
 // Muda p/ fullscreen mode
 // Find the right method, call on correct element
-function SetFullScreen(element)
-{
-    if (element.requestFullscreen)
-    {
+function SetFullScreen(element) {
+    if (element.requestFullscreen) {
         element.requestFullscreen();
-    } else if (element.mozRequestFullScreen)
-    {
+    } else if (element.mozRequestFullScreen) {
         element.mozRequestFullScreen();
-    } else if (element.webkitRequestFullscreen)
-    {
+    } else if (element.webkitRequestFullscreen) {
         element.webkitRequestFullscreen();
-    } else if (element.msRequestFullscreen)
-    {
+    } else if (element.msRequestFullscreen) {
         element.msRequestFullscreen();
     }
 }
 
 // Whack fullscreen
-function ExitFullScreen()
-{
-    if (document.ExitFullScreen)
-    {
+function ExitFullScreen() {
+    if (document.ExitFullScreen) {
         document.ExitFullScreen();
-    } else if (document.mozCancelFullScreen)
-    {
+    } else if (document.mozCancelFullScreen) {
         document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen)
-    {
+    } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
     }
 }
 
 //Retorna o nivel de Zoom (Chrome)
-function Get_Zoom_Level()
-{
+function Get_Zoom_Level() {
     var r = (window.outerWidth - 16) / window.innerWidth
     var snaps = [0.29, 0.42, 0.58, 0.71, 0.83, 0.95, 1.05, 1.18, 1.38, 1.63, 1.88, 2.25, 2.75, 3.5, 4.5, 100]
     var ratios = [0.25, '1/3', 0.5, '2/3', 0.75, 0.9, 1, 1.1, 1.25, 1.5, 1.75, 2, 2.5, 3, 4, 5]
@@ -2008,8 +1747,7 @@ function Get_Zoom_Level()
 }
 
 // Ajusta o width de algumas colunas, obtendo a row c/ maior quantidade de caracteres ou usando o height como referencia p/ width e etc.
-function Resize_Columns(cmdi, min_length, extra_length)
-{
+function Resize_Columns(cmdi, min_length, extra_length) {
     // th_td       - usado no selector sera' igual a "th" ou "td" (td e' usado nos casos de tables sem headers)
     // sColumns    - Nome das colunas (sem o no. da linha ou theader)
     // MinLengths  - Qtde. de caracteres minimos p/ determinada coluna. 
@@ -2023,8 +1761,7 @@ function Resize_Columns(cmdi, min_length, extra_length)
     //extra_length - E' usado quando ha' colunas dinamicas (podem ser exibidas ou ocultas), como por exemplo, Tamanhos de MPDs;
     //               Ex. e' informado a quantidade de caracteres minimos que as demais colunas precisam ter (No. de colunas * quantidade minima de caracteres)
 
-    if (cmdi.fitcontent)
-    {
+    if (cmdi.fitcontent) {
         var elements, selector, wlength, twidth, w, max_length, th_td, smin, smax, sColumns, ncols, vmin_length, id_first_tr, elength
 
         ncols = 0
@@ -2036,13 +1773,11 @@ function Resize_Columns(cmdi, min_length, extra_length)
         if (cmdi.drilldown) { sColumns.unshift(cmdi.start_name + "_DrillDown") }
         if (sColumns.indexOf(cmdi.start_name + "_Img") < 0) { sColumns.unshift(cmdi.start_name + "_Selecao") }
 
-        for (var i = 0; i <= sColumns.length - 1; i++)
-        {
+        for (var i = 0; i <= sColumns.length - 1; i++) {
             column_name = sColumns[i]
             elements = $("#" + cmdi.table_name + " td:not(:hidden)[id^='" + column_name + "']").find('input, select, label, img, textarea, :checkbox')
 
-            if (elements.length > 0)
-            {
+            if (elements.length > 0) {
                 id_first_tr = elements[0].closest("tr").id
 
                 if (id_first_tr.indexOf("_tr_") >= 0 || id_first_tr.indexOf("_tr1_") >= 0) // P/ computar somente os tds da primeira tr.
@@ -2056,39 +1791,31 @@ function Resize_Columns(cmdi, min_length, extra_length)
                     selector = "#" + cmdi.table_name + " " + th_td + "[id^='" + column_name + "']"
                     wlength = (th_td == "th") ? $(selector).children().text().length : min_length
 
-                    if (elements.first().is("input, textarea"))
-                    {
-                        for (var j = 0; j <= elements.length - 1; j++)
-                        {
+                    if (elements.first().is("input, textarea")) {
+                        for (var j = 0; j <= elements.length - 1; j++) {
                             elength = $(elements[j]).val().length
                             wlength = elength > wlength ? elength : wlength
                         }
                         w = textWidth("large", wlength, min_length, max_length)
                     }
-                    else if (elements.first().is("select"))
-                    {
-                        for (var j = 0; j <= elements.length - 1; j++)
-                        {
+                    else if (elements.first().is("select")) {
+                        for (var j = 0; j <= elements.length - 1; j++) {
                             elength = $(elements[j]).find(":selected").text().length
                             wlength = elength > wlength ? elength : wlength
                         }
                         w = textWidth("large", wlength, min_length, max_length)
                     }
-                    else if (elements.first().is("label"))
-                    {
-                        for (var j = 0; j <= elements.length - 1; j++)
-                        {
+                    else if (elements.first().is("label")) {
+                        for (var j = 0; j <= elements.length - 1; j++) {
                             elength = $(elements[j]).text().length
                             wlength = elength > wlength ? elength : wlength
                         }
                         w = textWidth("medium", wlength, min_length, max_length)
                     }
-                    else if (elements.first().is("img"))
-                    {
+                    else if (elements.first().is("img")) {
                         w = elements.first().height()  // Como altura e largura sao iguais usa height como referencia, visto que, width esta' c/ 100%
                     }
-                    else if (elements.first().is(":checkbox"))
-                    {
+                    else if (elements.first().is(":checkbox")) {
                         w = textWidth("large", 5, 0, max_length)
                     }
 
@@ -2099,22 +1826,19 @@ function Resize_Columns(cmdi, min_length, extra_length)
             }
         }
 
-        if (twidth > 0)
-        {
+        if (twidth > 0) {
             // (ncols * 2) e' usado p/ computar os 'pixels' das bordas das celulas.
             var table_width = twidth + (ncols * 2) + (extra_length > 0 ? textWidth("large", extra_length, 0, 2000) : 0)
             $("#" + cmdi.table_name).css('width', table_width + "px")
         }
     }
-    else if (cmdi.resize && (cmdi.table_width))
-    {
+    else if (cmdi.resize && (cmdi.table_width)) {
         $("#" + cmdi.table_name).css('width', cmdi.table_width)
     }
 }
 
 // Calcula a largura do texto em points
-function textWidth(font_size, wlength, min_length, max_length)
-{
+function textWidth(font_size, wlength, min_length, max_length) {
     // Retorna min_length * Get_Zoom_Level se a wlength for menor que min_length ou
     //         max_length * Get_Zoom_Level se a wlength for maior que max_length
     // Usa fratio p/ calibrar a largura, conforme o tipo de fonte.
@@ -2131,31 +1855,26 @@ function textWidth(font_size, wlength, min_length, max_length)
 }
 
 // Obtem o cmdi de cmdis usando $.grep (cmdi = parametros relacionado 'as tabelas)
-function get_cmdi(tbl)
-{
+function get_cmdi(tbl) {
     return $.grep(cmdis, function (e) { return e.tbl == tbl })[0];
 }
 
 // Obtem o template de cmtis usando $.grep (cmti = parametros relacionado aos templates)
-function get_cmti_template(id)
-{
+function get_cmti_template(id) {
     var cmti = $.grep(cmtis, function (e) { return e.id == id })[0];
     return (cmti.template)
 }
 
 // Obtem o cmbi de cmbis usando $.grep (cmbi = parametros relacionado aos buttons (template_id, click_event, classe))
-function get_cmbi(grupo)
-{
+function get_cmbi(grupo) {
     return $.grep(cmbis, function (e) { return e.grupo == grupo })[0];
 }
 
 //Retorna o path das imagens, conforme o tipo indicado em bpath
-function get_ipath(bpath)
-{
+function get_ipath(bpath) {
     var ipath = ""
 
-    if (bpath != undefined)
-    {
+    if (bpath != undefined) {
         var cmip = $.grep(cmips, function (e) { return e.bpath == bpath })[0]
         if (cmip != undefined) { ipath = cmip.ipath }
     }
@@ -2167,10 +1886,8 @@ function get_ipath(bpath)
 // Esta array e' utilizada, geralmente quando ha' autocomplete.
 // Nestes casos ao inves de enviar todos os dados, envia-se somente alguns campos que estao relacionado ao caller_id
 // Por exemplo c/ Nome ou Nome Reduzido de Cadastros deve ser enviado tambem o tipo e o codigo.
-function get_crs(campo)
-{
-    if (isNumber(campo.slice(-4)))
-    {
+function get_crs(campo) {
+    if (isNumber(campo.slice(-4))) {
         var linha = Get_Linha(campo)
         campo = campo.replace("_" + linha, "")
     }
@@ -2181,14 +1898,12 @@ function get_crs(campo)
 // Funcao para arrendondar ou alinhar os cantos dos tables
 // Observar se algum div parent correspondente nao esta hidden, neste caso
 // nao sera processado corretamente, pois e' feito filtro p/ td (not :hidden)
-function round_table_corner(table_name)
-{
+function round_table_corner(table_name) {
     // Inicializa linhas com a quantidade de linhas (trs) do table
     var linhas = $("#" + table_name + " tr").length
 
     // Processa somente se houver linhas
-    if (linhas > 0)
-    {
+    if (linhas > 0) {
         // Remove os round corner previamente, (adicionado p/ prever adicao de nova(s) linha(s)), em seguida arredonda somente se 'tema.round = true'
         var all_td_first = $("#" + table_name + " tr").find("td:not(:hidden):first")
         var all_td_last = $("#" + table_name + " tr").find("td:not(:hidden):last")
@@ -2233,8 +1948,7 @@ function round_table_corner(table_name)
             crs_right = last_trs.find("td:not(:hidden):last[rowspan]")
 
             // Verifica se a ultima linha nao e' uma linha c/ unico 'td' como por exemplo a tr de opcoes
-            if ((colLeftBottom.attr("id") != colRightBottom.attr("id")) || (last_trs.length == crs_left.attr("rowspan") || last_trs.length == crs_right.attr("rowspan")))
-            {
+            if ((colLeftBottom.attr("id") != colRightBottom.attr("id")) || (last_trs.length == crs_left.attr("rowspan") || last_trs.length == crs_right.attr("rowspan"))) {
                 // Caso nao obtenha rows c/ rowspan p/ direita ou esquerda, inicializa novamente.
                 if (crs_left.length > 0) { colLeftBottom = crs_left }
                 if (crs_right.length > 0) { colRightBottom = crs_right }
@@ -2272,24 +1986,19 @@ function round_table_corner(table_name)
 }
 
 // Retorna o numero total de colspan (columns) de um table, verificando as trs passadas como parametro
-function total_colspan(trs, header)
-{
+function total_colspan(trs, header) {
     var colMax = 1
     var t_ = (header) ? "th" : "td"
 
     // trs contem as 'tr' com a mesma linha. E' necessario porque uma ou mais 'td' pode estar com
     // rowspan e ocupar a posicao de 2 ou mais 'td' da outra linha.
-    trs.each(function (index, item)
-    {
+    trs.each(function (index, item) {
         var colCount = 0;
-        $(item).find(t_ + ':not(:hidden)').each(function ()
-        {
-            if ($(this).attr('colspan'))
-            {
+        $(item).find(t_ + ':not(:hidden)').each(function () {
+            if ($(this).attr('colspan')) {
                 colCount += +$(this).attr('colspan');
             }
-            else
-            {
+            else {
                 colCount++;
             }
 
@@ -2300,16 +2009,14 @@ function total_colspan(trs, header)
 }
 
 // Pauta as linhas de itens do table
-function pauta_table(table_name)
-{
+function pauta_table(table_name) {
     var name_id, id_end_name, trs_lines, trs_lines_length, pauta, pauta_count
 
     for (var i = 1; i <= 7; i++) // 7 tipos diferentes de pautas
     {
         trs_lines = $("#" + table_name + " tr[data-pauta='" + i + "']")
 
-        if (trs_lines.length > 0)
-        {
+        if (trs_lines.length > 0) {
             // Inicializa name_id com  o nome da ultima tr (sem as linhas do header e das paginas)
             name_id = trs_lines.last().attr("id")
 
@@ -2327,14 +2034,11 @@ function pauta_table(table_name)
             // e como o table tem linhas dinamicas (Opcoes, Adicao de linhas, Mensagens e etc.), ao "entrar" 1 dessas linhas,
             // o selector considera-as mesmo que trs_lines so' tenha as linhas a serem pautadas.
 
-            trs_lines.each(function (index, tr)
-            {
-                if (index == trs_lines_length)
-                {
+            trs_lines.each(function (index, tr) {
+                if (index == trs_lines_length) {
                     pauta = true; pauta_started = true
                 }
-                else if (pauta_started)
-                {
+                else if (pauta_started) {
                     pauta_count += 1
                     if (pauta_count == trs_lines_length + 1) { pauta = !pauta; pauta_count = 1 }
                 }
@@ -2348,8 +2052,7 @@ function pauta_table(table_name)
 // ------------------ Funções relacionadas ao Ajax CallBack -------------------
 
 // Seta jfunctions c/ as funcoes que serao processadas no retorno do callback (Success)
-function Set_jfunctions()
-{
+function Set_jfunctions() {
     jfunctions.push("tema = json_parsed.tema")
     jfunctions.push("cmips = json_parsed.cmip")
     jfunctions.push("cmdis = json_parsed.cmdi")
@@ -2387,25 +2090,21 @@ function Set_jfunctions()
 }
 
 // Prepara os dados para serem enviados via callback para o Servidor e chama Perform_CallBack
-function Collect_Params(caller_id, caller_event, send_token, preloader)
-{
+function Collect_Params(caller_id, caller_event, send_token, preloader) {
     var Ids = "id;e"
     var Values = caller_id + ";" + caller_event
 
-    $(box_selector).not(":checkbox").each(function ()
-    {
+    $(box_selector).not(":checkbox").each(function () {
         Ids += ";" + this.id
         Values += ";" + convert_to_csv($(this).val())
     });
 
-    $(":checkbox").each(function ()
-    {
+    $(":checkbox").each(function () {
         Ids += ";" + this.id
         Values += ";" + $(this).prop("checked")
     });
 
-    if (send_token)
-    {
+    if (send_token) {
         Ids += ";token"
         Values += ";" + Get_Token()
     }
@@ -2416,16 +2115,14 @@ function Collect_Params(caller_id, caller_event, send_token, preloader)
 
 // Prepara o dado de um unico elemento para ser enviado via callback para o Servidor e chama Perform_CallBack
 // Nao envia token e define preloader com false.
-function Collect_Param_Element(caller, caller_event, send_token, preloader)
-{
+function Collect_Param_Element(caller, caller_event, send_token, preloader) {
     var caller_id = caller.attr('id')
     var Ids = "id;e;" + caller_id
     var Values = caller_id + ";" + caller_event
 
     Values += ";" + convert_to_csv(caller.is(':checkbox') ? caller.prop('checked') : caller.val())
 
-    if (send_token)
-    {
+    if (send_token) {
         Ids += ";token"
         Values += ";" + Get_Token()
     }
@@ -2436,14 +2133,12 @@ function Collect_Param_Element(caller, caller_event, send_token, preloader)
 
 // Prepara o dado dos elementos, enviando a ordem dos elementos, apos evento updade do sortable para serem enviados via callback para o Servidor e chama Perform_CallBack
 // Nao envia token e define preloader com false.
-function Collect_Params_Order(caller_id, caller_event, div)
-{
+function Collect_Params_Order(caller_id, caller_event, div) {
     var order = 1
     var Ids = "id;e"
     var Values = caller_id + ";" + caller_event
 
-    $("#" + div + " span").each(function ()
-    {
+    $("#" + div + " span").each(function () {
         Ids += ";" + this.id
         Values += ";" + order.toString()
         order += 1
@@ -2455,17 +2150,14 @@ function Collect_Params_Order(caller_id, caller_event, div)
 
 // Efetua chamada p/ Collect_Params, usando setTimeout de 100ms, p/ exibir o  preview,
 // ja que ao efetuar a chamada de Success_CallBack o preview nao e' exibido.
-function xlImport(wb_name)
-{
-    setTimeout(function ()
-    {
+function xlImport(wb_name) {
+    setTimeout(function () {
         Collect_Params('ExcelImportButton', wb_name, true, true);
     }, 100);
 }
 
 //  Efetua o Ajax CallBack para o Servidor
-function Perform_CallBack(urlText, jsonText, preloader, caller_id, caller_event)
-{
+function Perform_CallBack(urlText, jsonText, preloader, caller_id, caller_event) {
     $.ajax({
         url: urlText,
         data: jsonText,
@@ -2480,47 +2172,39 @@ function Perform_CallBack(urlText, jsonText, preloader, caller_id, caller_event)
 }
 
 // Efetua o Ajax CallBack para processar funcoes associadas ao autocomplete.
-function Set_Autocomplete(caller_id, urlText)
-{
+function Set_Autocomplete(caller_id, urlText) {
     $("#" + caller_id).autocomplete({
         minLength: 1,
-        source: function (request, response)
-        {
+        source: function (request, response) {
             $.ajax({
                 url: urlText,
                 data: "{ 'prefix':'" + request.term.replace("'", "") + "','focus_element':'" + caller_id + "' }",
                 type: "POST",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                success: function (data)
-                {
-                    response($.map(JSON.parse(data.d), function (item)
-                    {
+                success: function (data) {
+                    response($.map(JSON.parse(data.d), function (item) {
                         return { label: item.name, value: item.id, tipo: item.tipo, descr: item.descr }
                     }))
                 },
                 error: function (jqXHR, status, error) { Error_CallBack(jqXHR, status, error) }
             });
         },
-        open: function (event, ui)
-        {
+        open: function (event, ui) {
             $("#tipo").val("")
             $("#codigo").val("")
         },
-        focus: function (event, ui)
-        {
+        focus: function (event, ui) {
             $("#" + caller_id).val(ui.item.label);
             return false; // Prevent the widget from inserting the value.
         },
-        select: function (event, ui)
-        {
+        select: function (event, ui) {
             $("#tipo").val(ui.item.tipo)
             $("#codigo").val(ui.item.value)
             $("#" + caller_id).val(ui.item.label)
             return false;
         }
-    }).data("ui-autocomplete")._renderItem = function (ul, item)
-    {
+    }).data("ui-autocomplete")._renderItem = function (ul, item) {
         return $("<li>")
             .append("<a>" + item.label + ((item.descr) ? "<br>" + item.descr : "") + "</a>")
             .appendTo(ul);
@@ -2528,16 +2212,14 @@ function Set_Autocomplete(caller_id, urlText)
 }
 
 //  Efetua o Ajax CallBack p/ Upload_ImgFiles para o Servidor
-function UploadFile(file, isImage, isLast)
-{
+function UploadFile(file, isImage, isLast) {
     var isText = (checkfile_extension(file.name.toLowerCase(), new Array(".csv")))
     var fr = new FileReader()
     var chunkSize = isMobile() ? 524288 : 524288 * 2
     var vslice = 0
     var vparcial = 0
 
-    function loadNext()
-    {
+    function loadNext() {
         var start, end
         var status = ""
 
@@ -2550,28 +2232,23 @@ function UploadFile(file, isImage, isLast)
         else if (vparcial == file.size) { status = "end" }
         else if (vparcial == chunkSize) { status = "start" }
 
-        fr.onloadend = function (e)
-        {
+        fr.onloadend = function (e) {
             var header, base64String, jsonText
             // a variavel header e' usada p/ remover o header gerado pelo FileReader (modo DataURL) com slice,
             // sem slice e' necessario acrescentar o file.type ("data:" + file.type + ";base64,")
             // No entanto o IE usa "data:" + file.type + ";base64,", portanto e' necessario checar o arquivo para
             // saber qual e' a informacao do header.
 
-            if (isText)
-            {
+            if (isText) {
                 base64String = e.target.result
             }
-            else
-            {
+            else {
                 header = "data:;base64,"
 
-                if (e.target.result.indexOf("data:" + file.type + ";base64,") >= 0)
-                {
+                if (e.target.result.indexOf("data:" + file.type + ";base64,") >= 0) {
                     header = "data:" + file.type + ";base64,"
                 }
-                else if (e.target.result.indexOf("data:application/octet-stream;base64,") >= 0)
-                {
+                else if (e.target.result.indexOf("data:application/octet-stream;base64,") >= 0) {
                     header = "data:application/octet-stream;base64,"
                 }
                 base64String = e.target.result.substring((isText) ? 0 : header.length)
@@ -2585,8 +2262,7 @@ function UploadFile(file, isImage, isLast)
                 type: "POST",
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                success: function (msg)
-                {
+                success: function (msg) {
                     var json_parsed = JSON.parse(msg.d)
                     Success_CallBack(json_parsed, this.url, "xl", "xl")
 
@@ -2600,12 +2276,10 @@ function UploadFile(file, isImage, isLast)
             });
         };
 
-        if (isText)
-        {
+        if (isText) {
             fr.readAsText(file.slice(start, end + 1), 'CP1252');
         }
-        else
-        {
+        else {
             fr.readAsDataURL(file.slice(start, end + 1));
         }
     }
@@ -2613,29 +2287,24 @@ function UploadFile(file, isImage, isLast)
 }
 
 // Processa as informações recebidas do Servidor
-function Success_CallBack(json_parsed, urlText, caller_id, caller_event)
-{
+function Success_CallBack(json_parsed, urlText, caller_id, caller_event) {
     // Caso nao tenha mensagens e caller_event = "enter" ou etc., seta msg_check p/ fechar o painel de mensagem (caso esteja aberto)
     var msg_check = ((caller_event != undefined && caller_event == "enter") || (caller_id != undefined && caller_id.endsWith("Remover")))
 
-    if (json_parsed.jfunctions != undefined)
-    {
-        for (var i = 0; i <= json_parsed.jfunctions.length - 1; i++)
-        {
+    if (json_parsed.jfunctions != undefined) {
+        for (var i = 0; i <= json_parsed.jfunctions.length - 1; i++) {
             eval(jfunctions[json_parsed.jfunctions[i]])
         }
 
         if (json_parsed.msg == undefined && msg_check) { $("#msgPanel_" + caller_id).remove() }
     }
-    else
-    {
+    else {
         if (msg_check) { $("#msgPanel_" + caller_id).remove() }
     }
 }
 
 // Conforme os parametros exibe mensagens de erro do callback chamando Show_Msg
-function Error_CallBack(jqXHR, status, error)
-{
+function Error_CallBack(jqXHR, status, error) {
     var msg = "Falha detectada ao efetuar comunicacao com o servidor.<br>"
 
     if (jqXHR.status === 0) { msg += "Sem conexao. Verifique a rede.<br>" }
@@ -2661,11 +2330,9 @@ function Error_CallBack(jqXHR, status, error)
 }
 
 // Checa e processa algumas informacoes ocasionais (reload page, previous page, new page, qs, round_table)
-function Extra(extra)
-{
+function Extra(extra) {
     var item
-    for (var i = 0; i <= extra.length - 1; i++)
-    {
+    for (var i = 0; i <= extra.length - 1; i++) {
         item = extra[i]
 
         // Chama novamente Callback p/ restaurar as informacoes da session do usuario.
@@ -2678,10 +2345,8 @@ function Extra(extra)
         if (item.reload) { parent.location.reload(true) }
 
         // Redireciona para a pagina anterior
-        if (item.prevurl)
-        {
-            if (localStorage.getItem("previous_page"))
-            {
+        if (item.prevurl) {
+            if (localStorage.getItem("previous_page")) {
                 previous_page = localStorage.getItem("previous_page")
                 localStorage.removeItem("previous_page")
                 parent.window.location = previous_page
@@ -2689,17 +2354,14 @@ function Extra(extra)
         }
 
         // Redireciona a pagina para a url informada.
-        if (item.newurl)
-        {
+        if (item.newurl) {
             localStorage.setItem("previous_page", Get_PageName())
             parent.window.location = item.newurl
         }
 
         // Chama novamente Callback p/ inicializar os elementos com os parametros informados em localStorage ao inves de querystring
-        if (item.qs)
-        {
-            if (localStorage.getItem("QS_" + Get_PageName()))
-            {
+        if (item.qs) {
+            if (localStorage.getItem("QS_" + Get_PageName())) {
                 var qs_elements = JSON.stringify(localStorage.getItem("QS_" + Get_PageName()))
 
                 localStorage.removeItem("QS_" + Get_PageName())

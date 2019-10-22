@@ -1,4 +1,4 @@
-﻿<%@ Page Async="false" Language="vb" AutoEventWireup="false" CodeBehind="WorkersWebForm.aspx.vb" Inherits="ServerWorkers.WorkersWebForm" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="WorkersWebForm.aspx.vb" Inherits="ServerWorkers.WorkersWebForm" %>
 
 <!DOCTYPE html>
 
